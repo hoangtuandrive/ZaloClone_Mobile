@@ -19,6 +19,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import HomeScreen from "../screens/HomeScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
+import ChatRoomScreen from "../screens/ChatRoomScreen";
 import {
   RootStackParamList,
   RootTabParamList,
@@ -50,6 +51,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="ChatRoom"
+        component={ChatRoomScreen}
+        options={{ headerShown: true }}
+      />
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
