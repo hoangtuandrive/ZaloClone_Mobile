@@ -2,25 +2,35 @@ import React from "react";
 import { Text, Image, StyleSheet, View } from "react-native";
 import styles from "./styles";
 
-export default function ChatRoomItem() {
+export default function ChatRoomItem({ chatRoom }: { chatRoom: any }) {
+  //props
+  // console.log(props);
+  // const chatRoom = props.chatRoom;
+  // const { chatRoom } = props.chatRoom;
+  const user = chatRoom.users[1];
   return (
     <View style={styles.container}>
       <Image
         source={{
-          uri: "https://i.pinimg.com/564x/42/b8/f9/42b8f9fc9758de0176c690ada3e00fd6.jpg",
+          uri: user.imageUri,
         }}
         style={styles.image}
       />
-      <View style={styles.badgeContainer}>
-        <Text style={styles.badgeText}>4</Text>
-      </View>
+
+      {/* Conditional component rendering */}
+      {chatRoom.newMessages && (
+        <View style={styles.badgeContainer}>
+          <Text style={styles.badgeText}>{chatRoom.newMessages}</Text>
+        </View>
+      )}
+
       <View style={styles.rightContainer}>
         <View style={styles.row}>
-          <Text style={styles.name}>Anya Forger</Text>
-          <Text style={styles.text}>11:11 AM</Text>
+          <Text style={styles.name}>{user.name}</Text>
+          <Text style={styles.text}>{chatRoom.lastMessage.createdAt}</Text>
         </View>
         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>
-          Hello World this is a long message helo hello
+          {chatRoom.lastMessage.content}
         </Text>
       </View>
     </View>

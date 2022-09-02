@@ -6,14 +6,15 @@ export default [{
     imageUri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg',
   }, {
     id: 'u2',
-    name: 'Elon Musk',
-    imageUri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/elon.png',
+    name: 'Anya',
+    imageUri: 'https://i.pinimg.com/564x/42/b8/f9/42b8f9fc9758de0176c690ada3e00fd6.jpg',
   }],
   lastMessage: {
     id: 'm1',
-    content: 'btw, SpaceX is interested in buying notJust.dev!',
-    createdAt: '2020-10-03T14:48:00.000Z',
-  }
+    content: 'Hello World',
+    createdAt: '2022-10-03T14:48:00.000Z',
+  },
+  newMessages: 4,
 }, {
   id: '2',
   users: [{
