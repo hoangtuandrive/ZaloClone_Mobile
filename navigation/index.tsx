@@ -12,7 +12,13 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable } from "react-native";
+import {
+  ColorSchemeName,
+  Text,
+  View,
+  Image,
+  useWindowDimensions,
+} from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -20,6 +26,7 @@ import NotFoundScreen from "../screens/NotFoundScreen";
 import HomeScreen from "../screens/HomeScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import ChatRoomScreen from "../screens/ChatRoomScreen";
+import { Feather } from "@expo/vector-icons";
 import {
   RootStackParamList,
   RootTabParamList,
@@ -52,14 +59,17 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="ChatRoom"
-        component={ChatRoomScreen}
-        options={{ headerShown: true }}
+        name="Home"
+        component={HomeScreen}
+        options={{ headerTitle: HomeHeader }}
       />
       <Stack.Screen
-        name="Root"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        name="ChatRoom"
+        component={ChatRoomScreen}
+        options={{
+          headerTitle: ChatRoomHeader,
+          headerBackTitleVisible: false,
+        }}
       />
       <Stack.Screen
         name="NotFound"
@@ -70,56 +80,150 @@ function RootNavigator() {
   );
 }
 
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
-
-function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+const HomeHeader = (props) => {
+  const { width } = useWindowDimensions();
 
   return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width,
+        padding: 10,
+        alignItems: "center",
       }}
     >
-      <BottomTab.Screen
-        name="TabOne"
-        component={HomeScreen}
-        options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+      <Image
+        source={{
+          uri: "https://news.taihen.vn/wp-content/uploads/sites/2/2022/05/Anya-Forger-1-758x379.jpg",
         }}
+        style={{ width: 40, height: 40, borderRadius: 40 }}
       />
-    </BottomTab.Navigator>
+      <Text
+        style={{
+          flex: 1,
+          textAlign: "center",
+          color: "blue",
+          fontWeight: "bold",
+          marginLeft: 20,
+          fontSize: 20,
+        }}
+      >
+        Chats
+      </Text>
+      <Feather
+        name="camera"
+        size={24}
+        color="blue"
+        style={{ marginHorizontal: 5 }}
+      />
+      <Feather
+        name="edit"
+        size={24}
+        color="blue"
+        style={{ marginHorizontal: 20 }}
+      />
+    </View>
   );
-}
+};
+
+const ChatRoomHeader = (props) => {
+  const { width } = useWindowDimensions();
+
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: width - 50,
+        marginRight: 150,
+        padding: 10,
+        alignItems: "center",
+      }}
+    >
+      <Image
+        source={{
+          uri: "https://news.taihen.vn/wp-content/uploads/sites/2/2022/05/Anya-Forger-1-758x379.jpg",
+        }}
+        style={{ width: 40, height: 40, borderRadius: 40 }}
+      />
+      <Text
+        style={{
+          flex: 1,
+          color: "blue",
+          fontWeight: "bold",
+          marginLeft: 20,
+          fontSize: 20,
+        }}
+      >
+        {props.children}
+      </Text>
+      <Feather
+        name="camera"
+        size={24}
+        color="blue"
+        style={{ marginHorizontal: 5 }}
+      />
+      <Feather
+        name="edit"
+        size={24}
+        color="blue"
+        style={{ marginHorizontal: 20 }}
+      />
+    </View>
+  );
+};
+
+// /**
+//  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
+//  * https://reactnavigation.org/docs/bottom-tab-navigator
+//  */
+// const BottomTab = createBottomTabNavigator<RootTabParamList>();
+
+// function BottomTabNavigator() {
+//   const colorScheme = useColorScheme();
+
+//   return (
+//     <BottomTab.Navigator
+//       initialRouteName="TabOne"
+//       screenOptions={{
+//         tabBarActiveTintColor: Colors[colorScheme].tint,
+//       }}
+//     >
+//       <BottomTab.Screen
+//         name="TabOne"
+//         component={HomeScreen}
+//         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
+//           title: "Tab One",
+//           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+//           headerRight: () => (
+//             <Pressable
+//               onPress={() => navigation.navigate("Modal")}
+//               style={({ pressed }) => ({
+//                 opacity: pressed ? 0.5 : 1,
+//               })}
+//             >
+//               <FontAwesome
+//                 name="info-circle"
+//                 size={25}
+//                 color={Colors[colorScheme].text}
+//                 style={{ marginRight: 15 }}
+//               />
+//             </Pressable>
+//           ),
+//         })}
+//       />
+//       <BottomTab.Screen
+//         name="TabTwo"
+//         component={TabTwoScreen}
+//         options={{
+//           title: "Tab Two",
+//           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+//         }}
+//       />
+//     </BottomTab.Navigator>
+//   );
+// }
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
