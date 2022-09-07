@@ -4,9 +4,9 @@ export default [
     users: [
       {
         id: "u1",
-        name: "Vadim",
+        name: "Tuan",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg",
+          "https://i.pinimg.com/originals/b0/c8/13/b0c8134f045a31cc9e25cc601674a900.jpg",
       },
       {
         id: "u2",
@@ -17,31 +17,32 @@ export default [
     ],
     lastMessage: {
       id: "m1",
-      content: "btw, SpaceX is interested in buying notJust.dev!",
-      createdAt: "2022-10-03T14:48:00.000Z",
+      content:
+        "This is a long message This is a long message This is a long message This is a long message",
+      createdAt: "11:00am",
     },
-    newMessages: 4,
+    newMessages: 3,
   },
   {
     id: "2",
     users: [
       {
         id: "u1",
-        name: "Vadim",
+        name: "Tuan",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg",
+          "https://i.pinimg.com/originals/b0/c8/13/b0c8134f045a31cc9e25cc601674a900.jpg",
       },
       {
         id: "u3",
-        name: "Jeff",
+        name: "Pinch",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/jeff.jpeg",
+          "https://i.pinimg.com/564x/ff/8d/fe/ff8dfec5550ffc3ce72232726f4dd0bb.jpg",
       },
     ],
     lastMessage: {
       id: "m2",
-      content: "Why did you reject our offer?",
-      createdAt: "2022-10-02T15:40:00.000Z",
+      content: "Hi",
+      createdAt: "11:45am",
     },
   },
   {
@@ -49,21 +50,21 @@ export default [
     users: [
       {
         id: "u1",
-        name: "Vadim",
+        name: "Tuan",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg",
+          "https://i.pinimg.com/originals/b0/c8/13/b0c8134f045a31cc9e25cc601674a900.jpg",
       },
       {
         id: "u4",
-        name: "Tuan",
+        name: "NameHere",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/4.jpg",
+          "https://i.pinimg.com/564x/7d/18/50/7d185057844c28b6b1f8f834bcaa3f2d.jpg",
       },
     ],
     lastMessage: {
       id: "m3",
       content: "Hello world",
-      createdAt: "2022-10-02T14:48:00.000Z",
+      createdAt: "9:45pm",
     },
   },
   {
@@ -71,21 +72,21 @@ export default [
     users: [
       {
         id: "u1",
-        name: "Vadim",
+        name: "Tuan",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg",
+          "https://i.pinimg.com/originals/b0/c8/13/b0c8134f045a31cc9e25cc601674a900.jpg",
       },
       {
         id: "u5",
-        name: "Graham",
+        name: "Finn",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/graham.jpg",
+          "https://i.pinimg.com/564x/b9/07/66/b90766759c8dbdcba9b3a282d10c825d.jpg",
       },
     ],
     lastMessage: {
       id: "m4",
       content: "Hi!",
-      createdAt: "2022-09-29T14:48:00.000Z",
+      createdAt: "1:00am",
     },
   },
   {
@@ -93,9 +94,9 @@ export default [
     users: [
       {
         id: "u1",
-        name: "Vadim",
+        name: "Tuan",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg",
+          "https://i.pinimg.com/originals/b0/c8/13/b0c8134f045a31cc9e25cc601674a900.jpg",
       },
       {
         id: "u6",
@@ -107,7 +108,7 @@ export default [
     lastMessage: {
       id: "m5",
       content: "I would be happy",
-      createdAt: "2022-09-30T14:48:00.000Z",
+      createdAt: "7:00am",
     },
   },
   {
@@ -115,21 +116,21 @@ export default [
     users: [
       {
         id: "u1",
-        name: "Vadim",
+        name: "Tuan",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg",
+          "https://i.pinimg.com/originals/b0/c8/13/b0c8134f045a31cc9e25cc601674a900.jpg",
       },
       {
         id: "u7",
         name: "Sus?",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/1.jpg",
+          "https://i.pinimg.com/564x/1c/ee/de/1ceede5ff32d841aa17c36dfd9730608.jpg",
       },
     ],
     lastMessage: {
       id: "m6",
       content: "Who sus?",
-      createdAt: "2022-10-02T15:40:00.000Z",
+      createdAt: "12:00pm",
     },
   },
   {
@@ -137,21 +138,21 @@ export default [
     users: [
       {
         id: "u1",
-        name: "Vadim",
+        name: "Tuan",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg",
+          "https://i.pinimg.com/originals/b0/c8/13/b0c8134f045a31cc9e25cc601674a900.jpg",
       },
       {
         id: "u8",
-        name: "Daniel",
+        name: "Yuu",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/2.jpg",
+          "https://i.pinimg.com/564x/6d/d9/7b/6dd97b10857d5d9cc7399791a088f549.jpg",
       },
     ],
     lastMessage: {
       id: "m7",
       content: "How are you doing?",
-      createdAt: "2022-10-02T15:40:00.000Z",
+      createdAt: "12:00pm",
     },
   },
   {
@@ -159,21 +160,21 @@ export default [
     users: [
       {
         id: "u1",
-        name: "Vadim",
+        name: "Tuan",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg",
+          "https://i.pinimg.com/originals/b0/c8/13/b0c8134f045a31cc9e25cc601674a900.jpg",
       },
       {
         id: "u9",
-        name: "Carlos",
+        name: "Girl",
         imageUri:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/3.jpg",
+          "https://i.pinimg.com/564x/d1/2b/38/d12b38b1c4a480ec16213c39a815b00a.jpg",
       },
     ],
     lastMessage: {
       id: "m8",
-      content: "Hola hola coca cola?",
-      createdAt: "2022-09-27T15:40:00.000Z",
+      content: "Hola hola",
+      createdAt: "12:00pm",
     },
   },
 ];
