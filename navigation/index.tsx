@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -102,10 +102,10 @@ const HomeHeader = (props) => {
       <Text
         style={{
           flex: 1,
-          textAlign: "center",
-          color: "blue",
+          textAlign: "left",
+          color: "black",
           fontWeight: "bold",
-          marginLeft: 20,
+          marginLeft: 15,
           fontSize: 20,
         }}
       >
@@ -150,7 +150,7 @@ const ChatRoomHeader = (props) => {
       <Text
         style={{
           flex: 1,
-          color: "blue",
+          color: "black",
           fontWeight: "bold",
           marginLeft: 20,
           fontSize: 20,
@@ -158,14 +158,20 @@ const ChatRoomHeader = (props) => {
       >
         {props.children}
       </Text>
-      <Feather
-        name="camera"
+      <Ionicons
+        name="call-outline"
         size={24}
         color="blue"
         style={{ marginHorizontal: 5 }}
       />
-      <Feather
-        name="edit"
+      {/* <AntDesign
+        name="videocamera"
+        size={24}
+        color="blue"
+        style={{ marginHorizontal: 5 }}
+      /> */}
+      <AntDesign
+        name="infocirlceo"
         size={24}
         color="blue"
         style={{ marginHorizontal: 20 }}
