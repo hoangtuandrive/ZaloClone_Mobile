@@ -3,7 +3,7 @@ import { Text, Image, Pressable, View } from "react-native";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
-export default function ChatRoomItem({ chatRoom }: { chatRoom: any }) {
+export default function MessageList({ chatRoom }: { chatRoom: any }) {
   //props
   // console.log(props);
   // const chatRoom = props.chatRoom;

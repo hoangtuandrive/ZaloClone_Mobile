@@ -75,6 +75,7 @@ function RootNavigator() {
         options={{
           headerTitle: HomeHeader,
           headerBackVisible: false,
+          headerShadowVisible: false,
         }}
       />
       <Stack.Screen

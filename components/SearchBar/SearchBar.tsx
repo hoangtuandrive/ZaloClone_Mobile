@@ -18,3 +18,5 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+
+// https://blog.jscrambler.com/add-a-search-bar-using-hooks-and-flatlist-in-react-native

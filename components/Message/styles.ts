@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   image: {
-    height: 45,
-    width: 45,
-    borderRadius: 25,
-    marginTop: 5,
+    height: 30,
+    width: 30,
+    borderRadius: 15,
+    marginTop: 15,
+    marginLeft: 5,
   },
   row: {
     flexDirection: "row",
-    padding: 10,
   },
 });
 
