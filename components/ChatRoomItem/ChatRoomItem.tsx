@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, Image, Pressable, View } from "react-native";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
@@ -12,12 +12,15 @@ export default function ChatRoomItem({ chatRoom }: { chatRoom: any }) {
 
   const navigation = useNavigation();
 
-  const onPress = () => {
-    navigation.navigate("ChatRoom", { id: chatRoom.id });
-  };
+  // const onPress = () => {
+  //   navigation.navigate("ChatRoom", { id: chatRoom.id });
+  // };
 
   return (
-    <Pressable onPress={onPress} style={styles.container}>
+    <Pressable
+      onPress={() => navigation.navigate("ChatRoom", { id: chatRoom.id })}
+      style={styles.container}
+    >
       <Image
         source={{
           uri: user.imageUri,

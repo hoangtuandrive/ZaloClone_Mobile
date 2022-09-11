@@ -22,6 +22,16 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: 10,
   },
+  image: {
+    height: 45,
+    width: 45,
+    borderRadius: 25,
+    marginTop: 5,
+  },
+  row: {
+    flexDirection: "row",
+    padding: 10,
+  },
 });
 
 export default styles;

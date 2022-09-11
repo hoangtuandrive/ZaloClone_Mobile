@@ -10,9 +10,9 @@ export default function Login() {
     navigation.navigate("Home");
   };
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={styles.page}>
       <LoginScreen
-        // style={styles.login}
+        style={styles.login}
         emailPlaceholder="Email"
         passwordPlaceholder="Password"
         logoImageSource={require("../assets/images/fb-messenger.png")}
@@ -34,7 +34,16 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  login: {
+    backgroundColor: "white",
+    justifyContent: "center",
+  },
   image: {
+    marginTop: 50,
     margin: 10,
     flex: 1,
     maxHeight: 100,

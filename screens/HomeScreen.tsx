@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { Text, Image, StyleSheet, View, FlatList } from "react-native";
 import ChatRoomItem from "../components/ChatRoomItem/ChatRoomItem";
@@ -8,6 +8,7 @@ import chatRoomsData from "../assets/dummy-data/ChatRooms";
 export default function HomeScreen() {
   const route = useRoute();
   const navigation = useNavigation();
+  // const [chatRoomData, setChatsRoom] = useState(chatRoomsData);
 
   return (
     <View style={styles.page}>

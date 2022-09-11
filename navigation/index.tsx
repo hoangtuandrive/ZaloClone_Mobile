@@ -25,7 +25,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import HomeScreen from "../screens/HomeScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
-import ChatRoomScreen from "../screens/ChatRoomScreen";
+import MessageScreen from "../screens/MessageScreen";
 import Login from "../screens/LoginScreen";
 import { Feather } from "@expo/vector-icons";
 import {
@@ -63,7 +63,7 @@ function RootNavigator() {
         name="Login"
         component={Login}
         options={{
-          title: "Sign in",
+          headerShown: false,
           // // When logging out, a pop animation feels intuitive
           // // You can remove this if you want the default 'push' animation
           // animationTypeForReplace: state.isSignout ? 'pop' : 'push',
@@ -72,11 +72,14 @@ function RootNavigator() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ headerTitle: HomeHeader, headerBackVisible: false }}
+        options={{
+          headerTitle: HomeHeader,
+          headerBackVisible: false,
+        }}
       />
       <Stack.Screen
         name="ChatRoom"
-        component={ChatRoomScreen}
+        component={MessageScreen}
         options={{
           headerTitle: ChatRoomHeader,
           headerBackTitleVisible: false,
