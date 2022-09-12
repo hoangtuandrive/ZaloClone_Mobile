@@ -44,6 +44,7 @@ export default [
       content: "Hi",
       createdAt: "11:45am",
     },
+    newMessages: 2,
   },
   {
     id: "3",
@@ -66,6 +67,7 @@ export default [
       content: "Hello world",
       createdAt: "9:45pm",
     },
+    newMessages: 1,
   },
   {
     id: "4",
