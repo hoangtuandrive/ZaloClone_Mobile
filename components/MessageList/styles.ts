@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   name: {
-    fontWeight: "bold",
+    color: "black",
     fontSize: 20,
     marginBottom: 3,
   },
@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
   badgeText: {
     color: "white",
     fontSize: 20,
+  },
+  bold: {
+    fontWeight: "bold",
+    color: "black",
   },
 });
 

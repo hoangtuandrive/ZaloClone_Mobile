@@ -17,7 +17,8 @@ export default {
   messages: [
     {
       id: "m1",
-      content: "How are you, Elon!",
+      content:
+        "Long message Long messageLong messageLong messageLong messageLong messageLong messageLong messageLong messageLong messageLong message",
       createdAt: "11:00am",
       user: {
         id: "u1",
@@ -26,7 +27,8 @@ export default {
     },
     {
       id: "m2",
-      content: "I am good, good",
+      content:
+        "Long message Long messageLong messageLong messageLong messageLong message",
       createdAt: "11:00am",
       user: {
         id: "u2",

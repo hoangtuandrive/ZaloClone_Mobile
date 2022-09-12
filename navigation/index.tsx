@@ -126,14 +126,14 @@ const HomeHeader = (props) => {
       >
         Chats
       </Text>
-      <Feather
-        name="camera"
+      <AntDesign
+        name="contacts"
         size={24}
         color="blue"
         style={{ marginHorizontal: 5 }}
       />
-      <Feather
-        name="edit"
+      <AntDesign
+        name="addusergroup"
         size={24}
         color="blue"
         style={{ marginHorizontal: 20 }}
@@ -158,7 +158,7 @@ const ChatRoomHeader = (props) => {
     >
       <Image
         source={{
-          uri: "https://news.taihen.vn/wp-content/uploads/sites/2/2022/05/Anya-Forger-1-758x379.jpg",
+          uri: "https://static-images.vnncdn.net/files/publish/ty-phu-elon-musk-vua-chi-44-ty-usd-de-mua-lai-twitter-9ff465ee3a124118b8fc9b8e8c9bcb4a.jpg",
         }}
         style={{ width: 40, height: 40, borderRadius: 40 }}
       />

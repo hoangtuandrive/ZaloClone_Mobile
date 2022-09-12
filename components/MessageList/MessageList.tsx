@@ -12,15 +12,12 @@ export default function MessageList({ chatRoom }: { chatRoom: any }) {
 
   const navigation = useNavigation();
 
-  // const onPress = () => {
-  //   navigation.navigate("ChatRoom", { id: chatRoom.id });
-  // };
+  const onPress = () => {
+    navigation.navigate("ChatRoom", { id: chatRoom.id });
+  };
 
   return (
-    <Pressable
-      onPress={() => navigation.navigate("ChatRoom", { id: chatRoom.id })}
-      style={styles.container}
-    >
+    <Pressable onPress={onPress} style={styles.container}>
       <Image
         source={{
           uri: user.imageUri,
@@ -37,10 +34,18 @@ export default function MessageList({ chatRoom }: { chatRoom: any }) {
 
       <View style={styles.rightContainer}>
         <View style={styles.row}>
-          <Text style={styles.name}>{user.name}</Text>
-          <Text style={styles.text}>{chatRoom.lastMessage.createdAt}</Text>
+          <Text style={[styles.name, chatRoom.newMessages && styles.bold]}>
+            {user.name}
+          </Text>
+          <Text style={[styles.text, chatRoom.newMessages && styles.bold]}>
+            {chatRoom.lastMessage.createdAt}
+          </Text>
         </View>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={[styles.text, chatRoom.newMessages && styles.bold]}
+        >
           {chatRoom.lastMessage.content}
         </Text>
       </View>
