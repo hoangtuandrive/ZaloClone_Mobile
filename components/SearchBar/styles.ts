@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e3e3e3",
     justifyContent: "center",
     height: 40,
+    borderWidth: 0.2,
   },
 });
 

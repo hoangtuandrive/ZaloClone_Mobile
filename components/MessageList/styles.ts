@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   text: {
-    fontSize: 18,
+    fontSize: 16,
     color: "grey",
   },
   row: {
