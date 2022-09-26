@@ -12,14 +12,15 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
+import { useState, useEffect } from "react";
 import {
   ColorSchemeName,
   Text,
   View,
   Image,
   useWindowDimensions,
+  ActivityIndicator,
 } from "react-native";
-
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -27,6 +28,10 @@ import HomeScreen from "../screens/HomeScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import MessageScreen from "../screens/MessageScreen";
 import Login from "../screens/LoginScreen";
+import ConfirmEmailScreen from "../screens/ConfirmEmailScreen";
+import SignUpScreen from "../screens/SignUpScreen";
+import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
+import NewPasswordScreen from "../screens/NewPasswordScreen";
 import { Feather } from "@expo/vector-icons";
 import {
   RootStackParamList,
@@ -34,18 +39,103 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import { Auth, Hub } from "aws-amplify";
 
 export default function Navigation({
   colorScheme,
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const [user, setUser] = useState(undefined);
+
+  const checkUser = async () => {
+    try {
+      const authUser = await Auth.currentAuthenticatedUser({
+        bypassCache: true,
+      });
+      setUser(authUser);
+    } catch (e) {
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  useEffect(() => {
+    const listener = (data) => {
+      if (data.payload.event === "signIn" || data.payload.event === "signOut") {
+        checkUser();
+      }
+    };
+
+    Hub.listen("auth", listener);
+    return () => Hub.remove("auth", listener);
+  }, []);
+
+  if (user === undefined) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      <RootNavigator />
+      <Stack.Navigator>
+        {user ? (
+          <Stack.Group>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                headerTitle: HomeHeader,
+                headerBackVisible: false,
+                headerShadowVisible: false,
+              }}
+            />
+            <Stack.Screen
+              name="ChatRoom"
+              component={MessageScreen}
+              options={{
+                headerTitle: ChatRoomHeader,
+                headerBackTitleVisible: false,
+              }}
+            />
+          </Stack.Group>
+        ) : (
+          <Stack.Group>
+            <Stack.Screen
+              name="SignIn"
+              component={Login}
+              options={{
+                headerShown: false,
+                // // When logging out, a pop animation feels intuitive
+                // // You can remove this if you want the default 'push' animation
+                // animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+              }}
+            />
+
+            <Stack.Screen
+              name="NotFound"
+              component={NotFoundScreen}
+              options={{ title: "Oops!" }}
+            />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="ConfirmEmail" component={ConfirmEmailScreen} />
+            <Stack.Screen
+              name="ForgotPassword"
+              component={ForgotPasswordScreen}
+            />
+            <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
+          </Stack.Group>
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
@@ -56,48 +146,51 @@ export default function Navigation({
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-function RootNavigator() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{
-          headerShown: false,
-          // // When logging out, a pop animation feels intuitive
-          // // You can remove this if you want the default 'push' animation
-          // animationTypeForReplace: state.isSignout ? 'pop' : 'push',
-        }}
-      />
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          headerTitle: HomeHeader,
-          headerBackVisible: false,
-          headerShadowVisible: false,
-        }}
-      />
-      <Stack.Screen
-        name="ChatRoom"
-        component={MessageScreen}
-        options={{
-          headerTitle: ChatRoomHeader,
-          headerBackTitleVisible: false,
-        }}
-      />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
-      />
-    </Stack.Navigator>
-  );
-}
+// function RootNavigator() {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen
+//         name="Login"
+//         component={Login}
+//         options={{
+//           headerShown: false,
+//           // // When logging out, a pop animation feels intuitive
+//           // // You can remove this if you want the default 'push' animation
+//           // animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Home"
+//         component={HomeScreen}
+//         options={{
+//           headerTitle: HomeHeader,
+//           headerBackVisible: false,
+//           headerShadowVisible: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="ChatRoom"
+//         component={MessageScreen}
+//         options={{
+//           headerTitle: ChatRoomHeader,
+//           headerBackTitleVisible: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="NotFound"
+//         component={NotFoundScreen}
+//         options={{ title: "Oops!" }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
 
 const HomeHeader = (props) => {
   const { width } = useWindowDimensions();
-
+  const signOut = () => {
+    Auth.signOut();
+    console.log("signOut clicked");
+  };
   return (
     <View
       style={{
@@ -137,6 +230,7 @@ const HomeHeader = (props) => {
         size={24}
         color="blue"
         style={{ marginHorizontal: 20 }}
+        onPress={signOut}
       />
     </View>
   );

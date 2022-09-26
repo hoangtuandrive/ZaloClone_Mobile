@@ -53,68 +53,71 @@ export default function Login() {
   };
 
   return (
-    <Swiper>
-      <View style={styles.slide1}>
+    // <Swiper>
+    // <View style={styles.slide1}>
+    //   <Image
+    //     style={styles.image}
+    //     source={require("../assets/images/fb-messenger.png")}
+    //   ></Image>
+    //   <Text style={styles.title}>Messenger</Text>
+    // </View>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+      <View style={styles.root}>
         <Image
-          style={styles.image}
           source={require("../assets/images/fb-messenger.png")}
-        ></Image>
-        <Text style={styles.title}>Messenger</Text>
+          style={[styles.logo, { height: height * 0.3 }]}
+          resizeMode="contain"
+        />
+
+        <CustomInput
+          name="username"
+          placeholder="Username"
+          control={control}
+          rules={{ required: "Email is required" }}
+        />
+
+        <CustomInput
+          name="password"
+          placeholder="Password"
+          secureTextEntry
+          control={control}
+          rules={{
+            required: "Password is required",
+            minLength: {
+              value: 8,
+              message: "Password should be minimum 8 characters long",
+            },
+          }}
+        />
+
+        <CustomButton
+          text={loading ? "Loading..." : "Sign In"}
+          onPress={handleSubmit(onSignInPressed)}
+        />
+
+        <CustomButton
+          text="Forgot password?"
+          onPress={onForgotPasswordPressed}
+          type="TERTIARY"
+        />
+
+        <SocialSignInButtons />
+
+        <CustomButton
+          text="Don't have an account? Create one"
+          onPress={onSignUpPress}
+          type="TERTIARY"
+        />
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.root}>
-          <Image
-            source={require("../assets/images/fb-messenger.png")}
-            style={[styles.logo, { height: height * 0.3 }]}
-            resizeMode="contain"
-          />
-
-          <CustomInput
-            name="username"
-            placeholder="Username"
-            control={control}
-            rules={{ required: "Username is required" }}
-          />
-
-          <CustomInput
-            name="password"
-            placeholder="Password"
-            secureTextEntry
-            control={control}
-            rules={{
-              required: "Password is required",
-              minLength: {
-                value: 3,
-                message: "Password should be minimum 3 characters long",
-              },
-            }}
-          />
-
-          <CustomButton
-            text={loading ? "Loading..." : "Sign In"}
-            onPress={handleSubmit(onSignInPressed)}
-          />
-
-          <CustomButton
-            text="Forgot password?"
-            onPress={onForgotPasswordPressed}
-            type="TERTIARY"
-          />
-
-          <SocialSignInButtons />
-
-          <CustomButton
-            text="Don't have an account? Create one"
-            onPress={onSignUpPress}
-            type="TERTIARY"
-          />
-        </View>
-      </ScrollView>
-    </Swiper>
+    </ScrollView>
+    // </Swiper>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+  },
   root: {
     flex: 1,
     flexDirection: "column",
