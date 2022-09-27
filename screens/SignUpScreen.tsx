@@ -58,8 +58,8 @@ const SignUpScreen = () => {
               message: "Name should be at least 3 characters long",
             },
             maxLength: {
-              value: 24,
-              message: "Name should be max 24 characters long",
+              value: 32,
+              message: "Name should be max 32 characters long",
             },
           }}
         />
@@ -67,17 +67,18 @@ const SignUpScreen = () => {
         <CustomInput
           name="username"
           control={control}
-          placeholder="Username"
+          placeholder="Email"
           rules={{
-            required: "Username is required",
+            required: "Email is required",
             minLength: {
               value: 3,
-              message: "Username should be at least 3 characters long",
+              message: "Email should be at least 3 characters long",
             },
             maxLength: {
-              value: 24,
-              message: "Username should be max 24 characters long",
+              value: 32,
+              message: "Email should be max 32 characters long",
             },
+            pattern: { value: EMAIL_REGEX, message: "Email is invalid" },
           }}
         />
         {/* <CustomInput

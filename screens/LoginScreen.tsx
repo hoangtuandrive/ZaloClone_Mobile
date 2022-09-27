@@ -71,7 +71,7 @@ export default function Login() {
 
         <CustomInput
           name="username"
-          placeholder="Username"
+          placeholder="Email"
           control={control}
           rules={{ required: "Email is required" }}
         />
