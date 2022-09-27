@@ -32,6 +32,7 @@ import ConfirmEmailScreen from "../screens/ConfirmEmailScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import NewPasswordScreen from "../screens/NewPasswordScreen";
+import InfoScreen from "../screens/InfoScreen";
 import { Feather } from "@expo/vector-icons";
 import {
   RootStackParamList,
@@ -40,6 +41,7 @@ import {
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { Auth, Hub } from "aws-amplify";
+import { black } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
 export default function Navigation({
   colorScheme,
@@ -92,9 +94,9 @@ export default function Navigation({
           <Stack.Group>
             <Stack.Screen
               name="Home"
-              component={HomeScreen}
+              component={BottomTabNavigator}
               options={{
-                headerTitle: HomeHeader,
+                headerShown: false,
                 headerBackVisible: false,
                 headerShadowVisible: false,
               }}
@@ -187,10 +189,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const HomeHeader = (props) => {
   const { width } = useWindowDimensions();
-  const signOut = () => {
-    Auth.signOut();
-    console.log("signOut clicked");
-  };
   return (
     <View
       style={{
@@ -230,7 +228,6 @@ const HomeHeader = (props) => {
         size={24}
         color="blue"
         style={{ marginHorizontal: 20 }}
-        onPress={signOut}
       />
     </View>
   );
@@ -293,52 +290,43 @@ const ChatRoomHeader = (props) => {
 //  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
 //  * https://reactnavigation.org/docs/bottom-tab-navigator
 //  */
-// const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-// function BottomTabNavigator() {
-//   const colorScheme = useColorScheme();
-
-//   return (
-//     <BottomTab.Navigator
-//       initialRouteName="TabOne"
-//       screenOptions={{
-//         tabBarActiveTintColor: Colors[colorScheme].tint,
-//       }}
-//     >
-//       <BottomTab.Screen
-//         name="TabOne"
-//         component={HomeScreen}
-//         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-//           title: "Tab One",
-//           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-//           headerRight: () => (
-//             <Pressable
-//               onPress={() => navigation.navigate("Modal")}
-//               style={({ pressed }) => ({
-//                 opacity: pressed ? 0.5 : 1,
-//               })}
-//             >
-//               <FontAwesome
-//                 name="info-circle"
-//                 size={25}
-//                 color={Colors[colorScheme].text}
-//                 style={{ marginRight: 15 }}
-//               />
-//             </Pressable>
-//           ),
-//         })}
-//       />
-//       <BottomTab.Screen
-//         name="TabTwo"
-//         component={TabTwoScreen}
-//         options={{
-//           title: "Tab Two",
-//           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-//         }}
-//       />
-//     </BottomTab.Navigator>
-//   );
-// }
+function BottomTabNavigator() {
+  return (
+    <BottomTab.Navigator
+      initialRouteName="TabOne"
+      screenOptions={{
+        tabBarActiveTintColor: "black",
+      }}
+    >
+      <BottomTab.Screen
+        name="Chats"
+        component={HomeScreen}
+        options={{
+          headerTitle: HomeHeader,
+          tabBarIcon: ({ color }) => (
+            <Ionicons
+              name="chatbubble-ellipses-outline"
+              size={24}
+              color="black"
+            />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Info"
+        component={InfoScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="infocirlceo" size={24} color="black" />
+          ),
+        }}
+      />
+    </BottomTab.Navigator>
+  );
+}
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
