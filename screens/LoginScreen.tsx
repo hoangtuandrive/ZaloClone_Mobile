@@ -36,7 +36,7 @@ export default function Login() {
     setLoading(true);
     try {
       const response = await Auth.signIn(data.username, data.password);
-      console.log(response);
+      console.log("Login log", response);
     } catch (e: any) {
       Alert.alert("Error", e.message);
     }

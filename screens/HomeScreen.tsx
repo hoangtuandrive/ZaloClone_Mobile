@@ -10,18 +10,31 @@ import {
 } from "react-native";
 import ChatRoomItem from "../components/ChatRoomItem/ChatRoomItem";
 import SearchBar from "../components/SearchBar/SearchBar";
-import chatRoomsData from "../assets/dummy-data/ChatRooms";
+import { ChatRoom, ChatRoomUser } from "../src/models";
+import { Auth, DataStore } from "aws-amplify";
 
 export default function HomeScreen() {
-  const route = useRoute();
-  const navigation = useNavigation();
-  // const [chatRoomData, setChatsRoom] = useState(chatRoomsData);
+  const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
+
+  useEffect(() => {
+    const fetchChatRooms = async () => {
+      const currentUser = await Auth.currentAuthenticatedUser();
+      const chatRooms = (await DataStore.query(ChatRoomUser))
+        .filter(
+          (chatRoomUser) => chatRoomUser.user.id === currentUser.attributes.sub
+        )
+        .map((chatRoomUser) => chatRoomUser.chatRoom);
+      console.log(chatRooms);
+      setChatRooms(chatRooms);
+    };
+    fetchChatRooms();
+  }, []);
 
   return (
     <View style={styles.page}>
       <FlatList
         ListHeaderComponent={SearchBar}
-        data={chatRoomsData}
+        data={chatRooms}
         renderItem={({ item }) => <ChatRoomItem chatRoom={item} />}
         showsVerticalScrollIndicator={false}
       ></FlatList>
