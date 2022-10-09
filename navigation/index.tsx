@@ -9,6 +9,7 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
+  useNavigation,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
@@ -20,6 +21,7 @@ import {
   Image,
   useWindowDimensions,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -33,6 +35,7 @@ import SignUpScreen from "../screens/SignUpScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import NewPasswordScreen from "../screens/NewPasswordScreen";
 import InfoScreen from "../screens/InfoScreen";
+import UsersScreen from "../screens/UsersScreen";
 import { Feather } from "@expo/vector-icons";
 import {
   RootStackParamList,
@@ -102,6 +105,13 @@ export default function Navigation({
               }}
             />
             <Stack.Screen
+              name="UsersScreen"
+              component={UsersScreen}
+              options={{
+                title: "Users",
+              }}
+            />
+            <Stack.Screen
               name="ChatRoom"
               component={MessageScreen}
               options={{
@@ -116,6 +126,7 @@ export default function Navigation({
               name="SignIn"
               component={Login}
               options={{
+                title: "Login",
                 headerShown: false,
                 // // When logging out, a pop animation feels intuitive
                 // // You can remove this if you want the default 'push' animation
@@ -128,13 +139,26 @@ export default function Navigation({
               component={NotFoundScreen}
               options={{ title: "Oops!" }}
             />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen name="ConfirmEmail" component={ConfirmEmailScreen} />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUpScreen}
+              options={{ title: "Register" }}
+            />
+            <Stack.Screen
+              name="ConfirmEmail"
+              component={ConfirmEmailScreen}
+              options={{ title: "Confirm Your Email" }}
+            />
             <Stack.Screen
               name="ForgotPassword"
               component={ForgotPasswordScreen}
+              options={{ title: "Forgot Password" }}
             />
-            <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
+            <Stack.Screen
+              name="NewPassword"
+              component={NewPasswordScreen}
+              options={{ title: "New Password" }}
+            />
           </Stack.Group>
         )}
       </Stack.Navigator>
@@ -189,6 +213,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const HomeHeader = (props) => {
   const { width } = useWindowDimensions();
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -217,12 +242,15 @@ const HomeHeader = (props) => {
       >
         Chats
       </Text>
-      <AntDesign
-        name="contacts"
-        size={24}
-        color="blue"
-        style={{ marginHorizontal: 5 }}
-      />
+      <Pressable onPress={() => navigation.navigate("UsersScreen")}>
+        <AntDesign
+          name="contacts"
+          size={24}
+          color="blue"
+          style={{ marginHorizontal: 5 }}
+        />
+      </Pressable>
+
       <AntDesign
         name="addusergroup"
         size={24}

@@ -37,7 +37,6 @@ export default function Login() {
     try {
       const response = await Auth.signIn(data.username, data.password);
       console.log(response);
-      navigation.navigate("Home");
     } catch (e: any) {
       Alert.alert("Error", e.message);
     }

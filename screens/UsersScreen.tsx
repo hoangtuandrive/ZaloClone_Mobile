@@ -8,21 +8,33 @@ import {
   FlatList,
   TextInput,
 } from "react-native";
-import ChatRoomItem from "../components/ChatRoomItem/ChatRoomItem";
+import { DataStore } from "aws-amplify";
+import UserItem from "../components/UserItem/UserItem";
 import SearchBar from "../components/SearchBar/SearchBar";
-import chatRoomsData from "../assets/dummy-data/ChatRooms";
+import { User } from "../src/models";
 
 export default function HomeScreen() {
-  const route = useRoute();
-  const navigation = useNavigation();
-  // const [chatRoomData, setChatsRoom] = useState(chatRoomsData);
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    DataStore.query(User).then(setUsers);
+  }, []);
+
+  // useEffect(() => {
+  //   // query users
+  //   const fetchUsers = async () => {
+  //     const fetchedUsers = await DataStore.query(User);
+  //     setUsers(fetchedUsers);
+  //   };
+  //   fetchUsers();
+  // }, [])
 
   return (
     <View style={styles.page}>
       <FlatList
         ListHeaderComponent={SearchBar}
-        data={chatRoomsData}
-        renderItem={({ item }) => <ChatRoomItem chatRoom={item} />}
+        data={users}
+        renderItem={({ item }) => <UserItem user={item} />}
         showsVerticalScrollIndicator={false}
       ></FlatList>
     </View>
