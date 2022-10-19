@@ -45,6 +45,8 @@ import {
 import LinkingConfiguration from "./LinkingConfiguration";
 import { Auth, Hub } from "aws-amplify";
 import { black } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+import { User } from "../src/models";
+import { DataStore } from "aws-amplify";
 
 export default function Navigation({
   colorScheme,
@@ -52,13 +54,18 @@ export default function Navigation({
   colorScheme: ColorSchemeName;
 }) {
   const [user, setUser] = useState(undefined);
+  const [dbUser, setdbUser] = useState<User>();
 
+  // check login
   const checkUser = async () => {
     try {
       const authUser = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
       setUser(authUser);
+      // get user from db
+      const dbUser = await DataStore.query(User, authUser.attributes.sub); //query by id
+      setdbUser(dbUser);
     } catch (e) {
       setUser(null);
     }
@@ -211,7 +218,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 //   );
 // }
 
-const HomeHeader = (props) => {
+const HomeHeader = (currentUser) => {
   const { width } = useWindowDimensions();
   const navigation = useNavigation();
   return (
@@ -226,7 +233,7 @@ const HomeHeader = (props) => {
     >
       <Image
         source={{
-          uri: "https://news.taihen.vn/wp-content/uploads/sites/2/2022/05/Anya-Forger-1-758x379.jpg",
+          uri: "https://www.logiquetechno.com/wp-content/uploads/2020/11/retirer-photo-de-profil-facebook.png",
         }}
         style={{ width: 40, height: 40, borderRadius: 40 }}
       />
@@ -320,7 +327,7 @@ const ChatRoomHeader = (props) => {
 //  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-function BottomTabNavigator() {
+function BottomTabNavigator(currentUser) {
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"

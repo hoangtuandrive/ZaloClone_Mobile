@@ -12,7 +12,7 @@ export default function UserItem({ user }: { user: any }) {
     //Create a chat room
     const newChatRoom = await DataStore.save(new ChatRoom({ newMessages: 0 }));
 
-    //Connect current user to the chat room
+    //Connect current user to that chat room
     const authUser = await Auth.currentAuthenticatedUser();
     const dbUser = await DataStore.query(User, authUser.attributes.sub); //query by id
     await DataStore.save(

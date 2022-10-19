@@ -19,7 +19,7 @@
       "function": {
         "UngDungNhanTinNhom10PostConfirmation": {
           "deploymentBucketName": "amplify-ungdungnhantinnhom10-staging-30651-deployment",
-          "s3Key": "amplify-builds/UngDungNhanTinNhom10PostConfirmation-526b4c724d7278354257-build.zip"
+          "s3Key": "amplify-builds/UngDungNhanTinNhom10PostConfirmation-56433972576d4f49766d-build.zip"
         }
       }
     }

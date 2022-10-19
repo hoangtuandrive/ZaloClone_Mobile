@@ -29,6 +29,9 @@ exports.handler = async (event, context) => {
     id: { S: event.request.userAttributes.sub },
     name: { S: event.request.userAttributes.name },
     email: { S: event.request.userAttributes.email },
+    imageUri: {
+      S: "https://www.logiquetechno.com/wp-content/uploads/2020/11/retirer-photo-de-profil-facebook.png",
+    },
   };
   const params = {
     Item: userItem,
