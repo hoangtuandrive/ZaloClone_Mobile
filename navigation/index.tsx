@@ -332,7 +332,17 @@ function BottomTabNavigator(currentUser) {
     <BottomTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
-        tabBarActiveTintColor: "black",
+        tabBarActiveTintColor: "#fff",
+        tabBarInactiveTintColor: "black",
+        tabBarActiveBackgroundColor: "blue",
+        tabBarInactiveBackgroundColor: "#1877F2",
+        tabBarShowLabel: false,
+        tabBarStyle: [
+          {
+            display: "flex",
+          },
+          null,
+        ],
       }}
     >
       <BottomTab.Screen
@@ -343,9 +353,22 @@ function BottomTabNavigator(currentUser) {
           tabBarIcon: ({ color }) => (
             <Ionicons
               name="chatbubble-ellipses-outline"
-              size={24}
-              color="black"
+              size={28}
+              color="white"
             />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Contacts"
+        component={UsersScreen}
+        options={{
+          headerShown: true,
+          // tabBarShowLabel: false,
+          // tabBarLabel: "Test",
+          // tabBarLabelStyle: { color: "#fff" },
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="contacts" size={28} color="white" />
           ),
         }}
       />
@@ -355,7 +378,7 @@ function BottomTabNavigator(currentUser) {
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <AntDesign name="infocirlceo" size={24} color="black" />
+            <AntDesign name="infocirlceo" size={28} color="white" />
           ),
         }}
       />
