@@ -8,25 +8,37 @@ import {
   SafeAreaView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
-import { Auth } from "aws-amplify";
+import React, { useState, useEffect } from "react";
+import { Auth, DataStore } from "aws-amplify";
+import { User } from "../src/models";
 
 export default function InfoScreen() {
+  const [currentUser, setCurrentUsers] = useState<User>();
+
   const signOut = () => {
     Auth.signOut();
-    console.log("signOut clicked");
   };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const currentUser = await Auth.currentAuthenticatedUser();
+      const dbUser = await DataStore.query(User, currentUser.attributes.sub);
+      setCurrentUsers(dbUser);
+    };
+    fetchUser();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <Image
         source={{
-          uri: "https://news.taihen.vn/wp-content/uploads/sites/2/2022/05/Anya-Forger-1-758x379.jpg",
+          uri: currentUser?.imageUri,
         }}
         style={styles.anh}
       />
       <View style={styles.Top}>
         <TouchableOpacity style={styles.Top_content}>
-          <Text style={styles.Top_contentText}>Thuan Le</Text>
+          <Text style={styles.Top_contentText}>{currentUser?.name}</Text>
           <View>
             <AntDesign name="edit" size={24} color="black" />
           </View>
@@ -34,10 +46,10 @@ export default function InfoScreen() {
       </View>
       <View style={styles.btn}>
         <TouchableOpacity style={styles.btn_DoiMk}>
-          <Text style={styles.btn_DoiMkText}>Đổi mật khẩu</Text>
+          <Text style={styles.btn_DoiMkText}>Change Password</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btn_DangXuat} onPress={signOut}>
-          <Text style={styles.btn_DangXuatText}>Đăng xuất</Text>
+          <Text style={styles.btn_DangXuatText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
       <StatusBar style="auto" />
@@ -83,8 +95,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   btn_DoiMk: {
-    backgroundColor: "#E3C000",
-    width: 194,
+    backgroundColor: "#1877F2",
+    width: 340,
     height: 67,
     borderRadius: 40,
     alignItems: "center",
@@ -93,11 +105,11 @@ const styles = StyleSheet.create({
   btn_DoiMkText: {
     fontWeight: "bold",
     fontSize: 18,
-    color: "black",
+    color: "white",
   },
   btn_DangXuat: {
-    backgroundColor: "#E3C000",
-    width: 194,
+    backgroundColor: "#1877F2",
+    width: 340,
     height: 67,
     borderRadius: 40,
     alignItems: "center",
@@ -108,6 +120,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 18,
-    color: "black",
+    color: "white",
   },
 });
