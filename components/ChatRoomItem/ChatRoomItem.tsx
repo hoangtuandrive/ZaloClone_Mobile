@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, Image, Pressable, View, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { ChatRoomUser, User, Message } from "../../src/models";
+import { ChatRoomUser, User, Message, ChatRoom } from "../../src/models";
 import { DataStore, Auth } from "aws-amplify";
 import moment from "moment";
 
@@ -43,6 +43,14 @@ export default function ChatRoomItem({ chatRoom }: { chatRoom: any }) {
   }, []);
 
   const onPress = () => {
+    const setNewMessageToZero = async () => {
+      DataStore.save(
+        ChatRoom.copyOf(chatRoom, (updatedChatRoom) => {
+          updatedChatRoom.newMessages = 0;
+        })
+      );
+    };
+    setNewMessageToZero();
     navigation.navigate("ChatRoom", { id: chatRoom.id });
   };
 

@@ -40,6 +40,7 @@ export default function MessageInput({ chatRoom }) {
   const updateLastMessage = async (newMessage) => {
     DataStore.save(
       ChatRoom.copyOf(chatRoom, (updatedChatRoom) => {
+        updatedChatRoom.newMessages = 1;
         updatedChatRoom.LastMessage = newMessage;
       })
     );
