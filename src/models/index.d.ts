@@ -1,10 +1,10 @@
 import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 
-type MessageMetaData = {
+type ChatRoomMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type ChatRoomMetaData = {
+type MessageMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -14,17 +14,6 @@ type UserMetaData = {
 
 type ChatRoomUserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-export declare class Message {
-  readonly id: string;
-  readonly content: string;
-  readonly userID: string;
-  readonly chatroomID: string;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-  constructor(init: ModelInit<Message, MessageMetaData>);
-  static copyOf(source: Message, mutator: (draft: MutableModel<Message, MessageMetaData>) => MutableModel<Message, MessageMetaData> | void): Message;
 }
 
 export declare class ChatRoom {
@@ -38,6 +27,17 @@ export declare class ChatRoom {
   readonly chatRoomLastMessageId?: string | null;
   constructor(init: ModelInit<ChatRoom, ChatRoomMetaData>);
   static copyOf(source: ChatRoom, mutator: (draft: MutableModel<ChatRoom, ChatRoomMetaData>) => MutableModel<ChatRoom, ChatRoomMetaData> | void): ChatRoom;
+}
+
+export declare class Message {
+  readonly id: string;
+  readonly content: string;
+  readonly userID: string;
+  readonly chatroomID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Message, MessageMetaData>);
+  static copyOf(source: Message, mutator: (draft: MutableModel<Message, MessageMetaData>) => MutableModel<Message, MessageMetaData> | void): Message;
 }
 
 export declare class User {

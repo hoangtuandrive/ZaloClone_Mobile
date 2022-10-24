@@ -1,6 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "UngDungNhanTinNhom10": {
+        "Messenger": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -11,14 +11,14 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "api": {
-        "UngDungNhanTinNhom10": {
+        "Messenger": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
     },
     "function": {
-        "UngDungNhanTinNhom10PostConfirmation": {
+        "MessengerPostConfirmation": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",

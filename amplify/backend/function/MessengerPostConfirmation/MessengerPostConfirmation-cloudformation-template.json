@@ -67,12 +67,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "UngDungNhanTinNhom10PostConfirmation",
+            "MessengerPostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "UngDungNhanTinNhom10PostConfirmation",
+                  "MessengerPostConfirmation",
                   "-",
                   {
                     "Ref": "env"
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "UngDungNhanTinNhom10PostConfirmation",
+            "MessengerPostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "UngDungNhanTinNhom10PostConfirmation",
+                  "MessengerPostConfirmation",
                   "-",
                   {
                     "Ref": "env"

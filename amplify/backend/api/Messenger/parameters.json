@@ -1,5 +1,5 @@
 {
-  "AppSyncApiName": "UngDungNhanTinNhom10",
+  "AppSyncApiName": "Messenger",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false
 }

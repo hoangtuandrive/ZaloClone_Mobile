@@ -3,8 +3,8 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "ungdun62d90aad",
-    "userPoolName": "UngDungNhanTinNhom10",
+    "resourceNameTruncated": "messen7baf18dc",
+    "userPoolName": "Messenger",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -25,10 +25,10 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "UngDun62d90aad_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "Messen7baf18dc_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "62d90aad",
-    "resourceName": "UngDungNhanTinNhom10",
+    "sharedId": "7baf18dc",
+    "resourceName": "Messenger",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
     "usernameAttributes": [
@@ -58,7 +58,7 @@
     "dependsOn": [
       {
         "category": "function",
-        "resourceName": "UngDungNhanTinNhom10PostConfirmation",
+        "resourceName": "MessengerPostConfirmation",
         "triggerProvider": "Cognito",
         "attributes": [
           "Arn",
@@ -75,7 +75,7 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"UngDungNhanTinNhom10PostConfirmation\"\n  }\n]",
-    "permissions": []
+    "permissions": [],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"MessengerPostConfirmation\"\n  }\n]"
   }
 }
