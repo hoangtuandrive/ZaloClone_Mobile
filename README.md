@@ -3,6 +3,6 @@
 ```
 npm install
 npm start
-amplify pull --appId d3v6tub3hxqgch --envName staging
+amplify pull --appId d1h1pert0snweh --envName staging
 
 ```
