@@ -1,28 +1,28 @@
 export type AmplifyDependentResourcesAttributes = {
-    "auth": {
-        "Messenger": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
-            "UserPoolId": "string",
-            "UserPoolArn": "string",
-            "UserPoolName": "string",
-            "AppClientIDWeb": "string",
-            "AppClientID": "string"
-        }
-    },
-    "api": {
-        "Messenger": {
-            "GraphQLAPIKeyOutput": "string",
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
-        }
-    },
-    "function": {
-        "MessengerPostConfirmation": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        }
-    }
-}
+  auth: {
+    UngDungNhanTinNhom10: {
+      IdentityPoolId: "string";
+      IdentityPoolName: "string";
+      UserPoolId: "string";
+      UserPoolArn: "string";
+      UserPoolName: "string";
+      AppClientIDWeb: "string";
+      AppClientID: "string";
+    };
+  };
+  api: {
+    UngDungNhanTinNhom10: {
+      GraphQLAPIKeyOutput: "string";
+      GraphQLAPIIdOutput: "string";
+      GraphQLAPIEndpointOutput: "string";
+    };
+  };
+  function: {
+    UngDungNhanTinNhom10PostConfirmation: {
+      Name: "string";
+      Arn: "string";
+      LambdaExecutionRole: "string";
+      Region: "string";
+    };
+  };
+};

@@ -1,12 +1,12 @@
 {
   "auth": {
-    "Messenger": {
+    "UngDungNhanTinNhom10": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "MessengerPostConfirmation",
+          "resourceName": "UngDungNhanTinNhom10PostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -36,7 +36,7 @@
     }
   },
   "api": {
-    "Messenger": {
+    "UngDungNhanTinNhom10": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -46,6 +46,7 @@
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 30,
+              "apiKeyExpirationDate": "2022-11-24T04:29:26.798Z",
               "description": "api key description"
             }
           },
@@ -59,7 +60,7 @@
     }
   },
   "function": {
-    "MessengerPostConfirmation": {
+    "UngDungNhanTinNhom10PostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
