@@ -1,7 +1,12 @@
 {
   "expo": {
+<<<<<<< HEAD
     "name": "mobile",
     "slug": "mobile",
+=======
+    "name": "UngDungChatMoblie",
+    "slug": "UngDungChatMoblie",
+>>>>>>> ce7336df17d6675739249cb234738c4937edd74c
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

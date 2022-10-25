@@ -2,7 +2,11 @@
   "providers": [
     "awscloudformation"
   ],
+<<<<<<< HEAD
   "projectName": "Messenger",
+=======
+  "projectName": "UngDungNhanTinNhom10",
+>>>>>>> ce7336df17d6675739249cb234738c4937edd74c
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

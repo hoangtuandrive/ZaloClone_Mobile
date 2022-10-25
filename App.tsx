@@ -3,7 +3,11 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
+<<<<<<< HEAD
 import { Amplify } from "aws-amplify";
+=======
+import {Amplify} from 'aws-amplify';
+>>>>>>> ce7336df17d6675739249cb234738c4937edd74c
 // @ts-ignore
 import awsconfig from "./src/aws-exports";
 // @ts-ignore
@@ -43,4 +47,8 @@ export default App;
 //   }
 // }
 
+<<<<<<< HEAD
 // export default AppWithAuth;
+=======
+// export default AppWithAuth;
+>>>>>>> ce7336df17d6675739249cb234738c4937edd74c

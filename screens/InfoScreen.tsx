@@ -15,8 +15,14 @@ import { User } from "../src/models";
 export default function InfoScreen() {
   const [currentUser, setCurrentUsers] = useState<User>();
 
+<<<<<<< HEAD
   const signOut = () => {
     Auth.signOut();
+=======
+  const signOut = async() => {
+    Auth.signOut();
+   await DataStore.clear();
+>>>>>>> ce7336df17d6675739249cb234738c4937edd74c
   };
 
   useEffect(() => {

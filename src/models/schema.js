@@ -1,5 +1,99 @@
 export const schema = {
     "models": {
+<<<<<<< HEAD
+=======
+        "Message": {
+            "name": "Message",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "content": {
+                    "name": "content",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "userID": {
+                    "name": "userID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "chatroomID": {
+                    "name": "chatroomID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Messages",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byChatRoom",
+                        "fields": [
+                            "chatroomID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+>>>>>>> ce7336df17d6675739249cb234738c4937edd74c
         "ChatRoom": {
             "name": "ChatRoom",
             "fields": {
@@ -108,6 +202,7 @@ export const schema = {
                 }
             ]
         },
+<<<<<<< HEAD
         "Message": {
             "name": "Message",
             "fields": {
@@ -199,6 +294,8 @@ export const schema = {
                 }
             ]
         },
+=======
+>>>>>>> ce7336df17d6675739249cb234738c4937edd74c
         "User": {
             "name": "User",
             "fields": {
@@ -383,5 +480,9 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
+<<<<<<< HEAD
+=======
+    "codegenVersion": "3.2.0",
+>>>>>>> ce7336df17d6675739249cb234738c4937edd74c
     "version": "2cc477d645c013dd316343f0df268647"
 };

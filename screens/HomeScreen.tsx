@@ -27,6 +27,10 @@ export default function HomeScreen() {
       console.log(chatRooms);
       setChatRooms(chatRooms);
     };
+<<<<<<< HEAD
+=======
+   
+>>>>>>> ce7336df17d6675739249cb234738c4937edd74c
     fetchChatRooms();
   }, []);
 
