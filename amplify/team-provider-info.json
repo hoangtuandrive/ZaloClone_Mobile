@@ -1,0 +1,27 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ungdungnhantinnhom10-staging-30651-authRole",
+      "UnauthRoleArn": "arn:aws:iam::806685633913:role/amplify-ungdungnhantinnhom10-staging-30651-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::806685633913:role/amplify-ungdungnhantinnhom10-staging-30651-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-ungdungnhantinnhom10-staging-30651-deployment",
+      "UnauthRoleName": "amplify-ungdungnhantinnhom10-staging-30651-unauthRole",
+      "StackName": "amplify-ungdungnhantinnhom10-staging-30651",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:806685633913:stack/amplify-ungdungnhantinnhom10-staging-30651/f13726f0-36fe-11ed-a3e8-025cf27ea62e",
+      "AmplifyAppId": "d3v6tub3hxqgch",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-ungdungnhantinnhom10-staging-30651-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "UngDungNhanTinNhom10": {}
+      },
+      "function": {
+        "UngDungNhanTinNhom10PostConfirmation": {
+          "deploymentBucketName": "amplify-ungdungnhantinnhom10-staging-30651-deployment",
+          "s3Key": "amplify-builds/UngDungNhanTinNhom10PostConfirmation-6261396f3359562f4863-build.zip"
+        }
+      }
+    }
+  }
+}

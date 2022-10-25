@@ -1,11 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import useCachedResources from "./hooks/useCachedResources";
+import useColorScheme from "./hooks/useColorScheme";
+import Navigation from "./navigation";
+import {Amplify} from 'aws-amplify';
+// @ts-ignore
+import awsconfig from "./src/aws-exports";
+// @ts-ignore
+import { withAuthenticator } from "aws-amplify-react-native";
+// @ts-ignore
+import { Authenticator, SignIn } from "aws-amplify-react-native";
+import { Component } from "react";
+import LoginScreen from "react-native-login-screen";
+import React from "react";
+Amplify.configure(awsconfig);
 
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
-
-export default function App() {
+function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
@@ -14,9 +24,23 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
+        <Navigation colorScheme={"light"} />
         <StatusBar />
       </SafeAreaProvider>
     );
   }
 }
+
+export default App;
+
+// class AppWithAuth extends Component {
+//   render() {
+//     return (
+//       <Authenticator hideDefault={true} theme={LoginScreen}>
+//         <SignIn />
+//       </Authenticator>
+//     );
+//   }
+// }
+
+// export default AppWithAuth;
