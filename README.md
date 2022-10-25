@@ -1,4 +1,4 @@
-# UngDungNhanTin_nhom10_web
+# UngDungNhanTin_nhom10_mobile
 
 ```
 npm install
