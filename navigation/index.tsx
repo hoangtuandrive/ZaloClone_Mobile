@@ -44,9 +44,9 @@ import {
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { Auth, Hub } from "aws-amplify";
-import { black } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 import { User } from "../src/models";
 import { DataStore } from "aws-amplify";
+import ChatRoomHeader from "./ChatRoomHeader";
 
 export default function Navigation({
   colorScheme,
@@ -121,10 +121,10 @@ export default function Navigation({
             <Stack.Screen
               name="ChatRoom"
               component={MessageScreen}
-              options={{
-                headerTitle: ChatRoomHeader,
+              options={({ route }) => ({
+                headerTitle: () => <ChatRoomHeader id={route.params?.id} />,
                 headerBackTitleVisible: false,
-              }}
+              })}
             />
           </Stack.Group>
         ) : (
@@ -260,59 +260,6 @@ const HomeHeader = (currentUser) => {
 
       <AntDesign
         name="addusergroup"
-        size={24}
-        color="blue"
-        style={{ marginHorizontal: 20 }}
-      />
-    </View>
-  );
-};
-
-const ChatRoomHeader = (props) => {
-  const { width } = useWindowDimensions();
-
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        width: width - 50,
-        marginRight: 150,
-        padding: 10,
-        alignItems: "center",
-      }}
-    >
-      <Image
-        source={{
-          uri: "https://static-images.vnncdn.net/files/publish/ty-phu-elon-musk-vua-chi-44-ty-usd-de-mua-lai-twitter-9ff465ee3a124118b8fc9b8e8c9bcb4a.jpg",
-        }}
-        style={{ width: 40, height: 40, borderRadius: 40 }}
-      />
-      <Text
-        style={{
-          flex: 1,
-          color: "black",
-          fontWeight: "bold",
-          marginLeft: 20,
-          fontSize: 20,
-        }}
-      >
-        {props.children}
-      </Text>
-      <Ionicons
-        name="call-outline"
-        size={24}
-        color="blue"
-        style={{ marginHorizontal: 5 }}
-      />
-      {/* <AntDesign
-        name="videocamera"
-        size={24}
-        color="blue"
-        style={{ marginHorizontal: 5 }}
-      /> */}
-      <AntDesign
-        name="infocirlceo"
         size={24}
         color="blue"
         style={{ marginHorizontal: 20 }}

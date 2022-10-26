@@ -15,8 +15,6 @@ export default function MessageScreen() {
   const navigation = useNavigation();
   // console.warn("Displaying chat room: ",route.params?.id);
 
-  navigation.setOptions({ title: "Elon Musk" });
-
   useEffect(() => {
     fetchChatRoom();
   }, []);
