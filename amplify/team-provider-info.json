@@ -21,6 +21,12 @@
           "deploymentBucketName": "amplify-ungdungnhantinnhom10-staging-30651-deployment",
           "s3Key": "amplify-builds/UngDungNhanTinNhom10PostConfirmation-6261396f3359562f4863-build.zip"
         }
+      },
+      "api": {
+        "UngDungNhanTinNhom10": {}
+      },
+      "storage": {
+        "s3ed00ee1a": {}
       }
     }
   }

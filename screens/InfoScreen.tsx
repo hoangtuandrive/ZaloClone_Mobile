@@ -6,14 +6,21 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  Platform,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
-import { Auth, DataStore } from "aws-amplify";
+import { Auth, container, DataStore, Storage } from "aws-amplify";
 import { User } from "../src/models";
+import * as ImagePicker from "expo-image-picker";
+import { v4 as uuidv4 } from "uuid";
+import { S3Image } from "aws-amplify-react-native";
 
 export default function InfoScreen() {
   const [currentUser, setCurrentUsers] = useState<User>();
+  const [email, setEmail] = useState("");
+  const [image, setImage] = useState<string | null>(null);
+  const [progress, setProgress] = useState(0);
 
   const signOut = () => {
     Auth.signOut();
@@ -21,20 +28,105 @@ export default function InfoScreen() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const currentUser = await Auth.currentAuthenticatedUser();
-      const dbUser = await DataStore.query(User, currentUser.attributes.sub);
+      const currentUserCognito = await Auth.currentAuthenticatedUser();
+      setEmail(currentUserCognito.attributes.email);
+      const dbUser = await DataStore.query(
+        User,
+        currentUserCognito.attributes.sub
+      );
       setCurrentUsers(dbUser);
     };
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const libraryResponse =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const photoResponse = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (
+          libraryResponse.status !== "granted" ||
+          photoResponse.status !== "granted"
+        ) {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.5,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  const takePhoto = async () => {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      aspect: [4, 3],
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  const getBlob = async (uri: string) => {
+    const respone = await fetch(uri);
+    const blob = await respone.blob();
+    return blob;
+  };
+
+  // how many byte uploaded
+  const progressCallback = (progress) => {
+    setProgress(progress.loaded / progress.total);
+  };
+
+  const changeImage = async () => {
+    console.log("Test");
+    takePhoto();
+    if (!image) {
+      return;
+    }
+    const blob = await getBlob(image);
+    const { key } = await Storage.put(`${uuidv4()}.png`, blob, {
+      progressCallback,
+    });
+    console.log("takeImage");
+
+    // set image uri
+    const user = await DataStore.query(User, currentUser?.id);
+    const setImage = async () => {
+      DataStore.save(
+        User.copyOf(user, (updatedImage) => {
+          updatedImage.imageUri = key;
+        })
+      );
+      console.log("setImage");
+    };
+    setImage();
+  };
   return (
     <SafeAreaView style={styles.container}>
-      <Image
+      {/* <Image
         source={{
           uri: currentUser?.imageUri,
         }}
         style={styles.anh}
+      /> */}
+      <S3Image
+        imgKey={currentUser?.imageUri}
+        style={styles.anh}
+        resizeMode="contain"
       />
       <View style={styles.Top}>
         <TouchableOpacity style={styles.Top_content}>
@@ -44,7 +136,21 @@ export default function InfoScreen() {
           </View>
         </TouchableOpacity>
       </View>
+      <View style={styles.Top}>
+        <TouchableOpacity style={styles.Top_content}>
+          <Text style={styles.Top_contentText}>{email}</Text>
+          {/* <View>
+            <AntDesign name="edit" size={24} color="black" />
+          </View> */}
+        </TouchableOpacity>
+      </View>
       <View style={styles.btn}>
+        <TouchableOpacity
+          onPress={changeImage}
+          style={[styles.btn_DoiMk, { marginBottom: 20 }]}
+        >
+          <Text style={styles.btn_DoiMkText}>Change Profile Picture</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.btn_DoiMk}>
           <Text style={styles.btn_DoiMkText}>Change Password</Text>
         </TouchableOpacity>
@@ -85,7 +191,6 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 20,
     textAlign: "center",
-    paddingRight: 40,
   },
   btn: {
     flex: 1,

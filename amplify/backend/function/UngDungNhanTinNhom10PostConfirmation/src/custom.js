@@ -30,7 +30,7 @@ exports.handler = async (event, context) => {
     name: { S: event.request.userAttributes.name },
     email: { S: event.request.userAttributes.email },
     imageUri: {
-      S: "https://cdn-icons-png.flaticon.com/512/3003/3003035.png",
+      S: "3003035.png",
     },
   };
   const params = {

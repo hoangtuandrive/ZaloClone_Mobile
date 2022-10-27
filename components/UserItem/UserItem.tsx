@@ -4,6 +4,7 @@ import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { DataStore, Auth } from "aws-amplify";
 import { ChatRoom, User, ChatRoomUser } from "../../src/models";
+import { S3Image } from "aws-amplify-react-native";
 
 export default function UserItem({ user }: { user: any }) {
   const navigation = useNavigation();
@@ -35,11 +36,16 @@ export default function UserItem({ user }: { user: any }) {
 
   return (
     <Pressable onPress={onPress} style={styles.container}>
-      <Image
+      {/* <Image
         source={{
           uri: user.imageUri,
         }}
         style={styles.image}
+      /> */}
+      <S3Image
+        imgKey={user.imageUri}
+        style={styles.image}
+        resizeMode="contain"
       />
 
       <View style={styles.rightContainer}>
