@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { Auth, container, DataStore, Storage } from "aws-amplify";
 import { User } from "../src/models";
 import * as ImagePicker from "expo-image-picker";
@@ -21,6 +21,11 @@ export default function InfoScreen() {
   const [email, setEmail] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
+  function handleClick() {
+    forceUpdate();
+  }
 
   const signOut = () => {
     Auth.signOut();
@@ -114,15 +119,10 @@ export default function InfoScreen() {
       console.log("setImage");
     };
     setImage();
+    handleClick();
   };
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Image
-        source={{
-          uri: currentUser?.imageUri,
-        }}
-        style={styles.anh}
-      /> */}
       <S3Image
         imgKey={currentUser?.imageUri}
         style={styles.anh}

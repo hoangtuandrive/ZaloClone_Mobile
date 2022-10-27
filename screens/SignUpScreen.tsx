@@ -24,7 +24,7 @@ const SignUpScreen = () => {
         attributes: { email, name, preferred_username: username },
       });
 
-      navigation.navigate("ConfirmEmail", { username });
+      navigation.navigate("ConfirmEmail", { username, password });
     } catch (e: any) {
       Alert.alert("Error", e.message);
     }

@@ -17,6 +17,7 @@ export default function HomeScreen() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
 
   useEffect(() => {
+    DataStore.start();
     const fetchChatRooms = async () => {
       const currentUser = await Auth.currentAuthenticatedUser();
       const chatRooms = (await DataStore.query(ChatRoomUser))

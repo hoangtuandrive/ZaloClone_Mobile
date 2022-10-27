@@ -11,7 +11,10 @@ import { Auth } from "aws-amplify";
 const ConfirmEmailScreen = () => {
   const route = useRoute();
   const { control, handleSubmit, watch } = useForm({
-    defaultValues: { username: route?.params?.username },
+    defaultValues: {
+      username: route?.params?.username,
+      password: route?.params?.password,
+    },
   });
 
   const username = watch("username");
@@ -21,10 +24,13 @@ const ConfirmEmailScreen = () => {
   const onConfirmPressed = async (data) => {
     try {
       await Auth.confirmSignUp(data.username, data.code);
-      navigation.navigate("SignIn");
     } catch (e: any) {
       Alert.alert("Error", e.message);
     }
+    try {
+      const response = await Auth.signIn(data.username, data.password);
+      console.log("Login log", response);
+    } catch (e: any) {}
   };
 
   const onSignInPress = () => {
