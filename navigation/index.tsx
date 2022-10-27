@@ -47,6 +47,7 @@ import { Auth, Hub } from "aws-amplify";
 import { User } from "../src/models";
 import { DataStore } from "aws-amplify";
 import ChatRoomHeader from "./ChatRoomHeader";
+import { S3Image } from "aws-amplify-react-native";
 
 export default function Navigation({
   colorScheme,
@@ -218,9 +219,23 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 //   );
 // }
 
-const HomeHeader = (currentUser) => {
+const HomeHeader = (id) => {
   const { width } = useWindowDimensions();
   const navigation = useNavigation();
+  const [user, setUser] = useState<User>();
+
+  //// Không nhận đc id, sửa sau
+  // console.log(id);
+  // const fetchUser = async () => {
+  //   // const currentUserCognito = await Auth.currentAuthenticatedUser();
+  //   const dbUser = await DataStore.query(User, id);
+  //   setUser(dbUser);
+  // };
+
+  // useEffect(() => {
+  //   fetchUser();
+  // }, []);
+
   return (
     <View
       style={{
@@ -231,12 +246,18 @@ const HomeHeader = (currentUser) => {
         alignItems: "center",
       }}
     >
-      <Image
+      {/* bugged image */}
+      {/* <Image
         source={{
-          uri: "https://www.logiquetechno.com/wp-content/uploads/2020/11/retirer-photo-de-profil-facebook.png",
+          uri: user?.imageUri,
         }}
         style={{ width: 40, height: 40, borderRadius: 40 }}
-      />
+      /> */}
+      {/* <S3Image
+        imgKey={user?.imageUri}
+        style={{ width: 40, height: 40, borderRadius: 40 }}
+        resizeMode="contain"
+      /> */}
       <Text
         style={{
           flex: 1,
@@ -295,8 +316,8 @@ function BottomTabNavigator(currentUser) {
       <BottomTab.Screen
         name="Chats"
         component={HomeScreen}
-        options={{
-          headerTitle: HomeHeader,
+        options={({ route }) => ({
+          headerTitle: () => <HomeHeader id={route.params?.id} />,
           tabBarIcon: ({ color }) => (
             <Ionicons
               name="chatbubble-ellipses-outline"
@@ -304,7 +325,7 @@ function BottomTabNavigator(currentUser) {
               color="white"
             />
           ),
-        }}
+        })}
       />
       <BottomTab.Screen
         name="Contacts"

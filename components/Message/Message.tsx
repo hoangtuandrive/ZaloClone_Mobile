@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image } from "react-native";
 import styles from "./styles";
-import { DataStore, Auth } from "aws-amplify";
+import { DataStore, Auth, Storage } from "aws-amplify";
 import { User } from "../../src/models";
 import { ActivityIndicator } from "react-native-paper";
 import { useWindowDimensions } from "react-native";
 import { S3Image } from "aws-amplify-react-native";
+import AudioPlayer from "../AudioPlayer";
 
 export default function Message({ message }: { message: any }) {
   const [user, setUser] = useState<User | undefined>();
   const [isMe, setIsMe] = useState<boolean>(false);
+  const [soundURI, setSoundURI] = useState<any>(null);
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -26,6 +28,12 @@ export default function Message({ message }: { message: any }) {
     };
     checkIfMe();
   }, [user]);
+
+  useEffect(() => {
+    if (message.audio) {
+      Storage.get(message.audio).then(setSoundURI);
+    }
+  }, [message]);
 
   if (!user) {
     return <ActivityIndicator></ActivityIndicator>;
@@ -57,6 +65,7 @@ export default function Message({ message }: { message: any }) {
             />
           </View>
         )}
+        {soundURI && <AudioPlayer soundURI={soundURI} />}
 
         <Text style={{ color: isMe ? "white" : "black" }}>
           {message.content}

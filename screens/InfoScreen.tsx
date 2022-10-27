@@ -23,8 +23,10 @@ export default function InfoScreen() {
   const [progress, setProgress] = useState(0);
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
+  //Re-render but bugged
   function handleClick() {
-    forceUpdate();
+    console.log("Re-Render");
+    this.forceUpdate();
   }
 
   const signOut = () => {
