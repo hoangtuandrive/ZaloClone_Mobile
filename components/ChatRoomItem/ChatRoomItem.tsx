@@ -4,12 +4,14 @@ import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { ChatRoomUser, User, Message, ChatRoom } from "../../src/models";
 import { DataStore, Auth } from "aws-amplify";
+import { S3Image } from "aws-amplify-react-native";
 import moment from "moment";
 
-export default function ChatRoomItem({ chatRoom }: { chatRoom: any }) {
+export default function ChatRoomItem({ chatRoom }) {
   // const [users, setUsers] = useState<User[]>([]); //all users in 1 chatRoom
   const [user, setUser] = useState<User | null>(null); //to display user
   const [lastMessage, setLastMessage] = useState<Message | undefined>();
+  const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function ChatRoomItem({ chatRoom }: { chatRoom: any }) {
       const fetchedChatRoomUsers = (await DataStore.query(ChatRoomUser))
         .filter((chatRoomUser) => chatRoomUser.chatRoom.id === chatRoom.id)
         .map((chatRoomUser) => chatRoomUser.user);
-      // console.log(fetchedChatRoomUsers);
+      console.log(fetchedChatRoomUsers);
 
       // setUsers(fetchedChatRoomUsers);
 
@@ -28,11 +30,12 @@ export default function ChatRoomItem({ chatRoom }: { chatRoom: any }) {
           (user) => user.id !== authUser.attributes.sub
         ) || null
       );
+      setIsLoading(false);
     };
     fetchUsers();
   }, []);
 
-  //get last message from that chatroom, query by id
+  // get last message from that chatroom, query by id
   useEffect(() => {
     if (!chatRoom.chatRoomLastMessageId) {
       return;
@@ -58,21 +61,22 @@ export default function ChatRoomItem({ chatRoom }: { chatRoom: any }) {
   const time = moment(lastMessage?.createdAt).from(moment());
 
   //Loading
-  if (!user) {
-    return (
-      <ActivityIndicator
-        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-      />
-    );
+  if (isLoading) {
+    return <ActivityIndicator />;
   }
 
   return (
     <Pressable onPress={onPress} style={styles.container}>
+      {/*       
       <Image
-        source={{ uri: chatRoom.imageUri || user?.imageUri }}
+        source={{ uri: chatRoom?.imageUri || user?.imageUri }}
         style={styles.image}
+      /> */}
+      <S3Image
+        imgKey={chatRoom?.imageUri || user?.imageUri}
+        style={styles.image}
+        resizeMode="contain"
       />
-
       {/* Conditional component rendering */}
       {!!chatRoom.newMessages && (
         <View style={styles.badgeContainer}>

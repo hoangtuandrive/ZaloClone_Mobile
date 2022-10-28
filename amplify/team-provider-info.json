@@ -16,17 +16,14 @@
       "auth": {
         "UngDungNhanTinNhom10": {}
       },
+      "storage": {
+        "s3ed00ee1a": {}
+      },
       "function": {
         "UngDungNhanTinNhom10PostConfirmation": {
           "deploymentBucketName": "amplify-ungdungnhantinnhom10-staging-30651-deployment",
           "s3Key": "amplify-builds/UngDungNhanTinNhom10PostConfirmation-6d7967494b4e5a6a2b39-build.zip"
         }
-      },
-      "api": {
-        "UngDungNhanTinNhom10": {}
-      },
-      "storage": {
-        "s3ed00ee1a": {}
       }
     }
   }

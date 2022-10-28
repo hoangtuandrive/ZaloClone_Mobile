@@ -9,6 +9,8 @@ import {
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { ChatRoom, ChatRoomUser, User } from "../src/models";
 import { Auth, DataStore } from "aws-amplify";
+import { useNavigation } from "@react-navigation/core";
+import { S3Image } from "aws-amplify-react-native";
 
 const ChatRoomHeader = ({ id }) => {
   const { width } = useWindowDimensions();
@@ -16,6 +18,8 @@ const ChatRoomHeader = ({ id }) => {
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const [chatRoom, setChatRoom] = useState<ChatRoom | undefined>(undefined);
+
+  const navigation = useNavigation();
 
   const fetchUsers = async () => {
     const fetchedUsers = (await DataStore.query(ChatRoomUser))
@@ -43,6 +47,23 @@ const ChatRoomHeader = ({ id }) => {
     fetchChatRoom();
   }, []);
 
+  const getLastOnlineText = () => {
+    return "online";
+  };
+
+  //Group
+
+  const getUsernames = () => {
+    return allUsers.map((user) => user.name).join(", ");
+  };
+
+  const openInfo = () => {
+    // redirect to info page
+    navigation.navigate("GroupInfoScreen", { id });
+  };
+
+  const isGroup = allUsers.length > 2;
+
   return (
     <View
       style={{
@@ -54,23 +75,25 @@ const ChatRoomHeader = ({ id }) => {
         alignItems: "center",
       }}
     >
-      <Image
+      <S3Image
+        imgKey={chatRoom?.imageUri || user?.imageUri}
+        style={{ width: 40, height: 40, borderRadius: 40 }}
+        resizeMode="contain"
+      />
+      {/* <Image
         source={{
           uri: chatRoom?.imageUri || user?.imageUri,
         }}
         style={{ width: 40, height: 40, borderRadius: 40 }}
-      />
-      <Text
-        style={{
-          flex: 1,
-          color: "black",
-          fontWeight: "bold",
-          marginLeft: 20,
-          fontSize: 20,
-        }}
-      >
-        {chatRoom?.name || user?.name}
-      </Text>
+      /> */}
+      <Pressable onPress={openInfo} style={{ flex: 1, marginLeft: 10 }}>
+        <Text style={{ fontWeight: "bold" }}>
+          {chatRoom?.name || user?.name}
+        </Text>
+        <Text numberOfLines={1}>
+          {isGroup ? getUsernames() : getLastOnlineText()}
+        </Text>
+      </Pressable>
       <Ionicons
         name="call-outline"
         size={24}

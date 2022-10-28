@@ -52,9 +52,13 @@ type EagerChatRoom = {
   readonly LastMessage?: Message | null;
   readonly Messages?: (Message | null)[] | null;
   readonly ChatRoomUsers?: (ChatRoomUser | null)[] | null;
+  readonly Admin?: User | null;
+  readonly name?: string | null;
+  readonly imageUri?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly chatRoomLastMessageId?: string | null;
+  readonly chatRoomAdminId?: string | null;
 }
 
 type LazyChatRoom = {
@@ -63,9 +67,13 @@ type LazyChatRoom = {
   readonly LastMessage: AsyncItem<Message | undefined>;
   readonly Messages: AsyncCollection<Message>;
   readonly ChatRoomUsers: AsyncCollection<ChatRoomUser>;
+  readonly Admin: AsyncItem<User | undefined>;
+  readonly name?: string | null;
+  readonly imageUri?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly chatRoomLastMessageId?: string | null;
+  readonly chatRoomAdminId?: string | null;
 }
 
 export declare type ChatRoom = LazyLoading extends LazyLoadingDisabled ? EagerChatRoom : LazyChatRoom

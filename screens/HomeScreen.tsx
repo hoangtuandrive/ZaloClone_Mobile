@@ -14,9 +14,10 @@ import { ChatRoom, ChatRoomUser } from "../src/models";
 import { Auth, DataStore } from "aws-amplify";
 
 export default function HomeScreen() {
-  const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
+  const [chatRooms, setChatRooms] = useState<ChatRoom[]>();
 
   useEffect(() => {
+    // DataStore.clear();
     const fetchChatRooms = async () => {
       const currentUser = await Auth.currentAuthenticatedUser();
       const chatRooms = (await DataStore.query(ChatRoomUser))
@@ -24,9 +25,9 @@ export default function HomeScreen() {
           (chatRoomUser) => chatRoomUser.user.id === currentUser.attributes.sub
         )
         .map((chatRoomUser) => chatRoomUser.chatRoom);
-      // console.log(chatRooms);
       console.log(currentUser);
       setChatRooms(chatRooms);
+      // console.log(chatRooms);
     };
     fetchChatRooms();
   }, []);

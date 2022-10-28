@@ -1,14 +1,13 @@
-import * as React from "react";
+import { FontAwesome } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { Pressable, View, Text } from "react-native";
 import { Searchbar } from "react-native-paper";
-import { useState } from "react";
-import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import styles from "./styles";
 
-const SearchBar = () => {
+const NewGroupButton = ({ onPress }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
-
   return (
     <View>
       <Searchbar
@@ -21,11 +20,17 @@ const SearchBar = () => {
         placeholderTextColor="white"
         clearIcon={clearIcon}
       />
+      <Pressable onPress={onPress}>
+        <View
+          style={{ flexDirection: "row", padding: 10, alignItems: "center" }}
+        >
+          <FontAwesome name="group" size={24} color="#4f4f4f" />
+          <Text style={{ marginLeft: 10, fontWeight: "bold" }}>New group</Text>
+        </View>
+      </Pressable>
     </View>
   );
 };
-
-export default SearchBar;
 
 const clearIcon = () => {
   return (
@@ -35,4 +40,4 @@ const clearIcon = () => {
   );
 };
 
-// https://blog.jscrambler.com/add-a-search-bar-using-hooks-and-flatlist-in-react-native
+export default NewGroupButton;

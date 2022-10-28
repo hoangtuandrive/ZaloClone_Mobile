@@ -1,47 +1,24 @@
-import React, { useEffect } from "react";
-import { Text, Image, Pressable, View } from "react-native";
+import React from "react";
+import { Text, Image, View, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/core";
 import styles from "./styles";
-import { useNavigation } from "@react-navigation/native";
-import { DataStore, Auth } from "aws-amplify";
-import { ChatRoom, User, ChatRoomUser } from "../../src/models";
+import { Feather } from "@expo/vector-icons";
 import { S3Image } from "aws-amplify-react-native";
 
-export default function UserItem({ user }: { user: any }) {
-  const navigation = useNavigation();
-
-  const onPress = async () => {
-    //Create a chat room
-    const newChatRoom = await DataStore.save(new ChatRoom({ newMessages: 0 }));
-
-    //Connect current user to that chat room
-    const authUser = await Auth.currentAuthenticatedUser();
-    const dbUser = await DataStore.query(User, authUser.attributes.sub); //query by id
-    await DataStore.save(
-      new ChatRoomUser({
-        user: dbUser,
-        chatRoom: newChatRoom,
-      })
-    );
-
-    //Connect clicked user to the chat room
-    await DataStore.save(
-      new ChatRoomUser({
-        user,
-        chatRoom: newChatRoom,
-      })
-    );
-
-    navigation.navigate("ChatRoom", { id: newChatRoom.id });
-  };
-
+export default function UserItem({
+  user,
+  onPress,
+  onLongPress,
+  isSelected,
+  isAdmin = false,
+}) {
+  // null | false | true
   return (
-    <Pressable onPress={onPress} style={styles.container}>
-      {/* <Image
-        source={{
-          uri: user.imageUri,
-        }}
-        style={styles.image}
-      /> */}
+    <Pressable
+      onPress={onPress}
+      onLongPress={onLongPress}
+      style={styles.container}
+    >
       <S3Image
         imgKey={user.imageUri}
         style={styles.image}
@@ -49,10 +26,17 @@ export default function UserItem({ user }: { user: any }) {
       />
 
       <View style={styles.rightContainer}>
-        <View style={styles.row}>
-          <Text style={styles.name}>{user.name}</Text>
-        </View>
+        <Text style={styles.name}>{user.name}</Text>
+        {isAdmin && <Text>admin</Text>}
       </View>
+
+      {isSelected !== undefined && (
+        <Feather
+          name={isSelected ? "check-circle" : "circle"}
+          size={20}
+          color="#4f4f4f"
+        />
+      )}
     </Pressable>
   );
 }
