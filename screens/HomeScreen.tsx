@@ -12,10 +12,11 @@ import ChatRoomItem from "../components/ChatRoomItem/ChatRoomItem";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { ChatRoom, ChatRoomUser } from "../src/models";
 import { Auth, DataStore } from "aws-amplify";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function HomeScreen() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>();
-
+  const isFocused = useIsFocused();
   useEffect(() => {
     clear();
     const fetchChatRooms = async () => {
@@ -32,7 +33,7 @@ export default function HomeScreen() {
       console.log(chatRooms);
     };
     fetchChatRooms();
-  }, []);
+  }, [isFocused]);
 
   const clear = async () => {
     // await DataStore.clear();

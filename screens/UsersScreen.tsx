@@ -14,17 +14,19 @@ import NewGroupButton from "../components/NewGroupButton";
 import { useNavigation } from "@react-navigation/native";
 import { Auth, DataStore } from "aws-amplify";
 import { ChatRoom, User, ChatRoomUser } from "../src/models";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function UsersScreen() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const [isNewGroup, setIsNewGroup] = useState(false);
+  const isFocused = useIsFocused();
 
   const navigation = useNavigation();
 
   useEffect(() => {
     DataStore.query(User).then(setUsers);
-  }, []);
+  }, [isFocused]);
 
   // useEffect(() => {
   //   // query users

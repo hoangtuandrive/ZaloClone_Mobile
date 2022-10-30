@@ -62,6 +62,23 @@ export default function AddUsersScreen() {
   //   );
   // };
 
+  const confirmAddUser = async (user) => {
+    Alert.alert(
+      "Confirm add user admin",
+      `Are you sure you want to add ${user.name}`,
+      [
+        {
+          text: "Add user",
+          onPress: () => addUserToChatRoom(user),
+          style: "destructive",
+        },
+        {
+          text: "Cancel",
+        },
+      ]
+    );
+  };
+
   const addUserToChatRoom = async (user) => {
     const chatRoom1 = await DataStore.query(ChatRoom, route.params?.id);
     const chatRoomUser = chatRoom1?.ChatRoomUsers;
@@ -71,9 +88,6 @@ export default function AddUsersScreen() {
         chatRoom: chatRoom,
       })
     );
-    console.log("Current chatroom: ");
-    console.log(chatRoom1);
-    console.log("New chatroomuser: ");
     console.log(chatRoom2);
   };
 
@@ -82,7 +96,7 @@ export default function AddUsersScreen() {
       <FlatList
         data={users}
         renderItem={({ item }) => (
-          <UserItem user={item} onPress={() => addUserToChatRoom(item)} />
+          <UserItem user={item} onPress={() => confirmAddUser(item)} />
         )}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => <SearchBar></SearchBar>}

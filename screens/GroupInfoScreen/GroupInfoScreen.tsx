@@ -17,6 +17,7 @@ import { ChatRoom, User, ChatRoomUser } from "../../src/models";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 
 const GroupInfoScreen = () => {
   const [chatRoom, setChatRoom] = useState<ChatRoom | null>(null);
@@ -27,11 +28,12 @@ const GroupInfoScreen = () => {
   const [render, setRender] = useState(false);
   const route = useRoute();
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     fetchChatRoom();
     fetchUsers();
-  }, [render]);
+  }, [isFocused, render]);
 
   const fetchChatRoom = async () => {
     if (!route.params?.id) {
@@ -139,6 +141,13 @@ const GroupInfoScreen = () => {
   };
 
   const changRoomName = async () => {
+    // check if Auth user is admin of this group
+    const authData = await Auth.currentAuthenticatedUser();
+    if (chatRoom?.Admin?.id !== authData.attributes.sub) {
+      Alert.alert("You are not the admin of this group");
+      return;
+    }
+
     console.log("changeRoomName1");
     DataStore.save(
       ChatRoom.copyOf(chatRoom, (updatedName) => {
@@ -151,6 +160,11 @@ const GroupInfoScreen = () => {
   };
 
   const deleteRoom = async () => {
+    const authData = await Auth.currentAuthenticatedUser();
+    if (chatRoom?.Admin?.id !== authData.attributes.sub) {
+      Alert.alert("You are not the admin of this group");
+      return;
+    }
     console.log("deleteRoom1");
     const toDelete = await DataStore.query(ChatRoom, chatRoom.id);
     await DataStore.save(

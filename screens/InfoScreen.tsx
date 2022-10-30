@@ -15,14 +15,14 @@ import { User } from "../src/models";
 import * as ImagePicker from "expo-image-picker";
 import { v4 as uuidv4 } from "uuid";
 import { S3Image } from "aws-amplify-react-native";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function InfoScreen() {
   const [currentUser, setCurrentUsers] = useState<User>();
   const [email, setEmail] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
-
+  const isFocused = useIsFocused();
   //Re-render but bugged
   // function handleClick() {
   //   console.log("Re-Render");
@@ -44,7 +44,7 @@ export default function InfoScreen() {
       setCurrentUsers(dbUser);
     };
     fetchUser();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     (async () => {
