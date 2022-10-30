@@ -27,7 +27,7 @@ export default function UserItem({
 
       <View style={styles.rightContainer}>
         <Text style={styles.name}>{user.name}</Text>
-        {isAdmin && <Text>admin</Text>}
+        {isAdmin && <Text style={{ fontWeight: "bold" }}>Admin</Text>}
       </View>
 
       {isSelected !== undefined && (

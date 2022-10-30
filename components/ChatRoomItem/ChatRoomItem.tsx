@@ -80,7 +80,8 @@ export default function ChatRoomItem({ chatRoom }) {
       {/* Conditional component rendering */}
       {!!chatRoom.newMessages && (
         <View style={styles.badgeContainer}>
-          <Text style={styles.badgeText}>{chatRoom.newMessages}</Text>
+          {/* <Text style={styles.badgeText}>{chatRoom.newMessages}</Text>  */}
+          <Text style={styles.badgeText}>N</Text>
         </View>
       )}
 

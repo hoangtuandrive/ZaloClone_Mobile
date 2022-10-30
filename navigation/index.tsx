@@ -47,6 +47,7 @@ import { Auth, Hub } from "aws-amplify";
 import { User } from "../src/models";
 import { DataStore } from "aws-amplify";
 import ChatRoomHeader from "./ChatRoomHeader";
+import AddUsersScreen from "../screens/AddUsersScreen";
 import GroupInfoScreen from "../screens/GroupInfoScreen";
 import { S3Image } from "aws-amplify-react-native";
 
@@ -133,6 +134,13 @@ export default function Navigation({
               component={GroupInfoScreen}
               options={{
                 title: "Group Info",
+              }}
+            />
+            <Stack.Screen
+              name="AddUsersScreen"
+              component={AddUsersScreen}
+              options={{
+                title: "Add Users",
               }}
             />
           </Stack.Group>

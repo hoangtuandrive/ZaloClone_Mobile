@@ -16,18 +16,22 @@ import UserItem from "../../components/UserItem/UserItem";
 import { ChatRoom, User, ChatRoomUser } from "../../src/models";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const GroupInfoScreen = () => {
   const [chatRoom, setChatRoom] = useState<ChatRoom | null>(null);
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalNameVisible, setModalNameVisible] = useState(false);
+  const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const [roomName, setRoomName] = useState("");
+  const [render, setRender] = useState(false);
   const route = useRoute();
+  const navigation = useNavigation();
 
   useEffect(() => {
     fetchChatRoom();
     fetchUsers();
-  }, []);
+  }, [render]);
 
   const fetchChatRoom = async () => {
     if (!route.params?.id) {
@@ -48,6 +52,45 @@ const GroupInfoScreen = () => {
       .map((chatRoomUser) => chatRoomUser.user);
 
     setAllUsers(fetchedUsers);
+  };
+
+  const confirmChangeAdmin = async (user) => {
+    // check if Auth user is admin of this group
+    const authData = await Auth.currentAuthenticatedUser();
+    if (chatRoom?.Admin?.id !== authData.attributes.sub) {
+      Alert.alert("You are not the admin of this group");
+      return;
+    }
+
+    if (user.id === chatRoom?.Admin?.id) {
+      Alert.alert("You are the admin");
+      return;
+    }
+
+    Alert.alert(
+      "Confirm change admin",
+      `Are you sure you want to change admin to ${user.name}`,
+      [
+        {
+          text: "Change admin",
+          onPress: () => changeAdmin(user),
+          style: "destructive",
+        },
+        {
+          text: "Cancel",
+        },
+      ]
+    );
+  };
+
+  const changeAdmin = async (user) => {
+    const changeAdmin = await DataStore.save(
+      ChatRoom.copyOf(chatRoom, (updatedAdmin) => {
+        updatedAdmin.Admin.id = user.id;
+      })
+    );
+    console.log("Change admin");
+    console.log(changeAdmin);
   };
 
   const confirmDelete = async (user) => {
@@ -103,7 +146,21 @@ const GroupInfoScreen = () => {
       })
     );
     console.log("changeRoomName");
-    setModalVisible(!modalVisible);
+    setRender(!render);
+    setModalNameVisible(!modalNameVisible);
+  };
+
+  const deleteRoom = async () => {
+    console.log("deleteRoom1");
+    const toDelete = await DataStore.query(ChatRoom, chatRoom.id);
+    await DataStore.save(
+      ChatRoom.copyOf(toDelete, (updatedChatRoom) => {
+        updatedChatRoom.name = "Deleted";
+      })
+    );
+    console.log("deleteRoom");
+    setRender(!render);
+    setModalDeleteVisible(!modalDeleteVisible);
   };
 
   return (
@@ -111,9 +168,9 @@ const GroupInfoScreen = () => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={modalNameVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalNameVisible(!modalNameVisible);
         }}
       >
         <View style={styles.centeredView}>
@@ -135,6 +192,34 @@ const GroupInfoScreen = () => {
           </View>
         </View>
       </Modal>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalDeleteVisible}
+        onRequestClose={() => {
+          setModalNameVisible(!modalDeleteVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text>Are you sure you want to delete this group? </Text>
+            <View style={{ flexDirection: "row", marginTop: 20, padding: 10 }}>
+              <Pressable
+                style={[styles.button, styles.buttonClose, { marginRight: 20 }]}
+                onPress={() => deleteRoom()}
+              >
+                <Text style={styles.textStyle}>Yes</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalDeleteVisible(!modalDeleteVisible)}
+              >
+                <Text style={styles.textStyle}>No</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
       <Pressable style={{ flexDirection: "row" }}>
         <Text style={styles.title}>{chatRoom?.name}</Text>
         <Ionicons
@@ -142,7 +227,14 @@ const GroupInfoScreen = () => {
           size={32}
           color="black"
           style={{ marginLeft: 20 }}
-          onPress={() => setModalVisible(!modalVisible)}
+          onPress={() => setModalNameVisible(!modalNameVisible)}
+        />
+        <AntDesign
+          name="delete"
+          size={32}
+          color="black"
+          style={{ marginLeft: 20 }}
+          onPress={() => setModalDeleteVisible(!modalDeleteVisible)}
         />
       </Pressable>
       <View style={{ flexDirection: "row" }}>
@@ -152,6 +244,9 @@ const GroupInfoScreen = () => {
           size={32}
           color="black"
           style={{ marginLeft: 20 }}
+          onPress={() =>
+            navigation.navigate("AddUsersScreen", { id: chatRoom?.id })
+          }
         />
       </View>
 
@@ -161,6 +256,7 @@ const GroupInfoScreen = () => {
           <UserItem
             user={item}
             isAdmin={chatRoom?.Admin?.id === item.id}
+            onPress={() => confirmChangeAdmin(item)}
             onLongPress={() => confirmDelete(item)}
           />
         )}
@@ -191,7 +287,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 50,
-    paddingHorizontal: 100,
+    paddingHorizontal: 50,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {

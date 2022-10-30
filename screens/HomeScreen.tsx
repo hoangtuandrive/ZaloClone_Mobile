@@ -17,20 +17,27 @@ export default function HomeScreen() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>();
 
   useEffect(() => {
-    // DataStore.clear();
+    clear();
     const fetchChatRooms = async () => {
       const currentUser = await Auth.currentAuthenticatedUser();
       const chatRooms = (await DataStore.query(ChatRoomUser))
         .filter(
-          (chatRoomUser) => chatRoomUser.user.id === currentUser.attributes.sub
+          (chatRoomUser) =>
+            chatRoomUser.user.id === currentUser.attributes.sub &&
+            chatRoomUser.chatRoom.name != "Deleted"
         )
         .map((chatRoomUser) => chatRoomUser.chatRoom);
       console.log(currentUser);
       setChatRooms(chatRooms);
-      // console.log(chatRooms);
+      console.log(chatRooms);
     };
     fetchChatRooms();
   }, []);
+
+  const clear = async () => {
+    // await DataStore.clear();
+    await DataStore.start();
+  };
 
   return (
     <View style={styles.page}>

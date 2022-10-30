@@ -18,7 +18,7 @@ import {
 import { DataStore, Auth, Storage } from "aws-amplify";
 import { v4 as uuidv4 } from "uuid";
 import { Message, ChatRoom } from "../../src/models";
-import EmojiSelector from "react-native-emoji-selector";
+import EmojiSelector, { Categories } from "react-native-emoji-selector";
 import AudioPlayer from "../AudioPlayer";
 import * as ImagePicker from "expo-image-picker";
 import { Audio, AVPlaybackStatus } from "expo-av";
@@ -331,6 +331,7 @@ export default function MessageInput({ chatRoom }) {
             setMessage((currentMessage) => currentMessage + emoji)
           }
           columns={8}
+          category={Categories.emotion}
         />
       )}
     </KeyboardAvoidingView>

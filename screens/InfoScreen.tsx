@@ -24,10 +24,10 @@ export default function InfoScreen() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   //Re-render but bugged
-  function handleClick() {
-    console.log("Re-Render");
-    this.forceUpdate();
-  }
+  // function handleClick() {
+  //   console.log("Re-Render");
+  //   this.forceUpdate();
+  // }
 
   const signOut = () => {
     Auth.signOut();
@@ -100,8 +100,9 @@ export default function InfoScreen() {
 
   const changeImage = async () => {
     console.log("Test");
-    takePhoto();
+    await takePhoto();
     if (!image) {
+      console.log("No image");
       return;
     }
     const blob = await getBlob(image);
@@ -121,7 +122,6 @@ export default function InfoScreen() {
       console.log("setImage");
     };
     setImage();
-    handleClick();
   };
   return (
     <SafeAreaView style={styles.container}>
