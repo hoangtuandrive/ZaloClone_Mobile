@@ -5,6 +5,7 @@ type Message @model @auth(rules: [{allow: public}]) {
   chatroomID: ID! @index(name: "byChatRoom")
   image: String
   audio: String
+  file: String
 }
 
 type ChatRoom @model @auth(rules: [{allow: public}]) {
@@ -25,5 +26,6 @@ type User @model @auth(rules: [{allow: public}]) {
   status: String
   Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
   chatrooms: [ChatRoom] @manyToMany(relationName: "ChatRoomUser")
+  email: String
 }
  

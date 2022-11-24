@@ -163,48 +163,48 @@ const styles = StyleSheet.create({
 //   }
 
 //   return (
-//     <Swiper>
-//       <View style={styles.slide1}>
-//         <Image
-//           style={styles.logo}
-//           source={require("../assets/images/fb-messenger.png")}
-//         ></Image>
-//         <Text style={styles.title}>Messenger</Text>
-//       </View>
-//       <View style={styles.page}>
-//         <LoginScreen
-//           style={styles.login}
-//           emailPlaceholder="Email"
-//           passwordPlaceholder="Password"
-//           logoImageSource={require("../assets/images/fb-messenger.png")}
-//           onLoginPress={() => onLoginPress(username, password)}
-//           onSignupPress={() => {}}
-//           logoImageStyle={styles.image}
-//           onEmailChange={(username: string) => {
-//             console.log(username);
-//             // setUsername(username);
-//           }}
-//           onPasswordChange={(password: string) => {
-//             // setPassword(password);
-//           }}
-//         >
-//           <SocialButton
-//             text="Continue with Facebook"
-//             imageSource={require("../assets/images/facebook.png")}
-//             onPress={() => {}}
-//             style={styles.button}
-//             textContainerStyle={styles.text}
-//           />
-//           <SocialButton
-//             text="Continue with Google"
-//             imageSource={require("../assets/images/google.png")}
-//             onPress={() => {}}
-//             style={styles.button}
-//             textContainerStyle={styles.text}
-//           />
-//         </LoginScreen>
-//       </View>
-//     </Swiper>
+// <Swiper>
+//   <View style={styles.slide1}>
+//     <Image
+//       style={styles.logo}
+//       source={require("../assets/images/fb-messenger.png")}
+//     ></Image>
+//     <Text style={styles.title}>Messenger</Text>
+//   </View>
+//   <View style={styles.page}>
+//     <LoginScreen
+//       style={styles.login}
+//       emailPlaceholder="Email"
+//       passwordPlaceholder="Password"
+//       logoImageSource={require("../assets/images/fb-messenger.png")}
+//       onLoginPress={() => onLoginPress(username, password)}
+//       onSignupPress={() => {}}
+//       logoImageStyle={styles.image}
+//       onEmailChange={(username: string) => {
+//         console.log(username);
+//         // setUsername(username);
+//       }}
+//       onPasswordChange={(password: string) => {
+//         // setPassword(password);
+//       }}
+//     >
+//       <SocialButton
+//         text="Continue with Facebook"
+//         imageSource={require("../assets/images/facebook.png")}
+//         onPress={() => {}}
+//         style={styles.button}
+//         textContainerStyle={styles.text}
+//       />
+//       <SocialButton
+//         text="Continue with Google"
+//         imageSource={require("../assets/images/google.png")}
+//         onPress={() => {}}
+//         style={styles.button}
+//         textContainerStyle={styles.text}
+//       />
+//     </LoginScreen>
+//   </View>
+// </Swiper>
 //   );
 // }
 
