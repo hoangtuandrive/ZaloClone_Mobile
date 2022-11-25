@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import SocialSignInButtons from "../components/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/core";
 import { useForm } from "react-hook-form";
-import { Auth } from "aws-amplify";
+import { Auth, DataStore } from "aws-amplify";
+import { User } from "../src/models";
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -13,8 +14,32 @@ const EMAIL_REGEX =
 const SignUpScreen = () => {
   const { control, handleSubmit, watch } = useForm();
   const pwd = watch("password");
+  const usernameText = watch("username");
   const navigation = useNavigation();
+  const [listEmail, setListEmail] = useState([]);
+  const [emailErr, setEmailErr] = useState(false);
 
+//Get all email
+useEffect(() => {
+  const fetchUserList = async () => {
+    const GetUser = await DataStore.query(User);
+    setListEmail(GetUser);
+  };
+  fetchUserList();
+  for (var i=0; i < listEmail.length; i++) {
+    if (listEmail[i].email === usernameText) {
+      setEmailErr(true);
+      return;
+    } else {
+      setEmailErr(false);
+    }
+} 
+
+}, [usernameText]);
+
+
+  
+  
   const onRegisterPressed = async (data) => {
     const { username, password, email, name } = data;
     try {
@@ -81,6 +106,10 @@ const SignUpScreen = () => {
             pattern: { value: EMAIL_REGEX, message: "Email is invalid" },
           }}
         />
+         {emailErr && 
+                    <Text style={{ color: "red", alignSelf: "stretch" }}>
+                          Email already exists
+                    </Text> }
         {/* <CustomInput
           name="email"
           control={control}
