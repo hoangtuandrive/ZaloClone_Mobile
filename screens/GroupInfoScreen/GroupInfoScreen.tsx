@@ -91,8 +91,8 @@ const GroupInfoScreen = () => {
         updatedAdmin.Admin.id = user.id;
       })
     );
-    console.log("Change admin");
-    console.log(changeAdmin);
+    // console.log("Change admin");
+    // console.log(changeAdmin);
   };
 
   const confirmDelete = async (user) => {
@@ -131,7 +131,7 @@ const GroupInfoScreen = () => {
       (cru) => cru.chatRoom.id === chatRoom?.id && cru.user.id === user.id
     );
 
-    console.log(chatRoomUsersToDelete);
+    // console.log(chatRoomUsersToDelete);
 
     if (chatRoomUsersToDelete.length > 0) {
       await DataStore.delete(chatRoomUsersToDelete[0]);

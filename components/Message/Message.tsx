@@ -42,14 +42,18 @@ export default function Message({ message }: { message: any }) {
   return (
     <View style={styles.row}>
       {isMe == false && (
-        <Image
+        <S3Image
           style={styles.image}
-          //ignore
-          source={{
-            uri: null || user?.imageUri,
-          }}
-        ></Image>
+          // //ignore
+          // source={{
+          //   uri: null || user?.imageUri,
+          // }}
+          imgKey={null || user?.imageUri}
+          // style={{ width: width * 0.65, aspectRatio: 4 / 3 }}
+          resizeMode="contain"
+        ></S3Image>
       )}
+
       <View
         style={[
           styles.container,

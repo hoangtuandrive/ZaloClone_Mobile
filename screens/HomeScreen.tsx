@@ -18,7 +18,7 @@ export default function HomeScreen() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>();
   const isFocused = useIsFocused();
   useEffect(() => {
-    clear();
+    // clear();
     const fetchChatRooms = async () => {
       const currentUser = await Auth.currentAuthenticatedUser();
       const chatRooms = (await DataStore.query(ChatRoomUser))
@@ -28,9 +28,9 @@ export default function HomeScreen() {
             chatRoomUser.chatRoom.name != "Deleted"
         )
         .map((chatRoomUser) => chatRoomUser.chatRoom);
-      console.log(currentUser);
+      // console.log(currentUser);
       setChatRooms(chatRooms);
-      console.log(chatRooms);
+      // console.log(chatRooms);
     };
     fetchChatRooms();
   }, [isFocused]);
