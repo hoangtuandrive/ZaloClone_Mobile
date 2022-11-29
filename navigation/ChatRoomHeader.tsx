@@ -7,7 +7,7 @@ import {
   Pressable,
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { ChatRoom, ChatRoomUser, User } from "../src/models";
+import { ChatRoom, ChatRoomUser, User, Message } from "../src/models";
 import { Auth, DataStore } from "aws-amplify";
 import { useNavigation } from "@react-navigation/core";
 import { S3Image } from "aws-amplify-react-native";
@@ -17,6 +17,7 @@ const ChatRoomHeader = ({ id }) => {
   // console.log(id);
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [user, setUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [chatRoom, setChatRoom] = useState<ChatRoom | undefined>(undefined);
 
   const navigation = useNavigation();
@@ -32,6 +33,7 @@ const ChatRoomHeader = ({ id }) => {
     setUser(
       fetchedUsers.find((user) => user.id !== authUser.attributes.sub) || null
     );
+    setCurrentUser(authUser);
   };
 
   const fetchChatRoom = async () => {
@@ -60,6 +62,16 @@ const ChatRoomHeader = ({ id }) => {
   const openInfo = () => {
     // redirect to info page
     navigation.navigate("GroupInfoScreen", { id });
+  };
+
+  const VideoCall = async () => {
+    await DataStore.save(
+      new Message({
+        content: "Video Call",
+        userID: currentUser?.attributes.sub,
+        chatroomID: chatRoom?.id,
+      })
+    );
   };
 
   const isGroup = allUsers.length > 2;
@@ -99,6 +111,9 @@ const ChatRoomHeader = ({ id }) => {
         size={24}
         color="blue"
         style={{ marginHorizontal: 5 }}
+        onPress={() => {
+          VideoCall();
+        }}
       />
       {/* <AntDesign
           name="videocamera"

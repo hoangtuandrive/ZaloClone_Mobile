@@ -30,6 +30,7 @@ export default function InfoScreen() {
   // }
 
   const signOut = () => {
+    DataStore.clear();
     Auth.signOut();
   };
 

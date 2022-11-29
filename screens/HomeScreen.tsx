@@ -36,8 +36,8 @@ export default function HomeScreen() {
   }, [isFocused]);
 
   const clear = async () => {
-    // await DataStore.clear();
-    await DataStore.start();
+    await DataStore.clear();
+    // await DataStore.start();
   };
 
   return (

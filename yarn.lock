@@ -3841,6 +3841,13 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@koale/useworker@^4.0.2":
+  "integrity" "sha512-xPIPADtom8/3/4FLNj7MvNcBM/Z2FleH85Fdx2O869eoKW8+PoEgtSVvoxWjCWMA46Sm9A5/R1TyzNGc+yM0wg=="
+  "resolved" "https://registry.npmjs.org/@koale/useworker/-/useworker-4.0.2.tgz"
+  "version" "4.0.2"
+  dependencies:
+    "dequal" "^1.0.0"
+
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
   "resolved" "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -5722,6 +5729,11 @@
   "resolved" "https://registry.npmjs.org/depd/-/depd-2.0.0.tgz"
   "version" "2.0.0"
 
+"dequal@^1.0.0":
+  "integrity" "sha512-Fx8jxibzkJX2aJgyfSdLhr9tlRoTnHKrRJuu2XHlAgKioN2j19/Bcbe0d4mFXYZ3+wpE2KVobUVTfDutcD17xQ=="
+  "resolved" "https://registry.npmjs.org/dequal/-/dequal-1.0.1.tgz"
+  "version" "1.0.1"
+
 "destroy@1.2.0":
   "integrity" "sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg=="
   "resolved" "https://registry.npmjs.org/destroy/-/destroy-1.2.0.tgz"
@@ -5989,6 +6001,15 @@
   "version" "12.0.4"
   dependencies:
     "@expo/config-plugins" "~5.0.0"
+
+"expo-camera@~12.3.0":
+  "integrity" "sha512-niQ2kywvhLYzK0zj+8Xq5q77eeA10MdauKg7RKWGMNehht33uOXTP1pzAXwcPbQ0De3nRmddIlRQkkxV8ey7YQ=="
+  "resolved" "https://registry.npmjs.org/expo-camera/-/expo-camera-12.3.0.tgz"
+  "version" "12.3.0"
+  dependencies:
+    "@expo/config-plugins" "~5.0.0"
+    "@koale/useworker" "^4.0.2"
+    "invariant" "^2.2.4"
 
 "expo-constants@~13.2.0", "expo-constants@~13.2.2", "expo-constants@~13.2.4":
   "integrity" "sha512-Zobau8EuTk2GgafwkfGnWM6CmSLB7X8qnQXVuXe0nd3v92hfQUmRWGhJwH88uxXj3LrfqctM6PaJ8taG1vxfBw=="
@@ -9202,7 +9223,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.5.10", "prop-types@^15.7.2":
+"prop-types@^15.5.10", "prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -9532,6 +9553,15 @@
   "version" "18.0.0"
   dependencies:
     "loose-envify" "^1.1.0"
+
+"react@^16.8.0":
+  "integrity" "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g=="
+  "resolved" "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
+  "version" "16.14.0"
+  dependencies:
+    "loose-envify" "^1.1.0"
+    "object-assign" "^4.1.1"
+    "prop-types" "^15.6.2"
 
 "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
