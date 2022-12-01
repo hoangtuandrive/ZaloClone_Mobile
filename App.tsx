@@ -13,6 +13,7 @@ import { Authenticator, SignIn } from "aws-amplify-react-native";
 import { Component } from "react";
 import LoginScreen from "react-native-login-screen";
 import React from "react";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 Amplify.configure(awsconfig);
 
 function App() {
@@ -24,7 +25,9 @@ function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={"light"} />
+        <ActionSheetProvider>
+          <Navigation colorScheme={"light"} />
+        </ActionSheetProvider>
         <StatusBar />
       </SafeAreaProvider>
     );

@@ -22,6 +22,7 @@ export default function AddUsersScreen() {
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const [isNewGroup, setIsNewGroup] = useState(true);
   const route = useRoute();
+  const navigation = useNavigation();
 
   useEffect(() => {
     DataStore.query(User).then(setUsers);
@@ -88,7 +89,7 @@ export default function AddUsersScreen() {
         chatRoom: chatRoom,
       })
     );
-    console.log(chatRoom2);
+    navigation.goBack();
   };
 
   return (

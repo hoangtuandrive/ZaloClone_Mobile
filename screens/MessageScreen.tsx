@@ -10,7 +10,8 @@ import { ActivityIndicator } from "react-native-paper";
 export default function MessageScreen() {
   const [messages, setMessages] = useState<MessageModel[]>([]);
   const [chatRoom, setChatRoom] = useState<ChatRoom | null>(null);
-
+  const [messDel, setMessDel] = useState();
+  const [messUpdate, setMessUpdate] = useState();
   const route = useRoute();
   const navigation = useNavigation();
   // console.warn("Displaying chat room: ",route.params?.id);
@@ -21,7 +22,7 @@ export default function MessageScreen() {
 
   useEffect(() => {
     fetchMessages();
-  }, [chatRoom]);
+  }, [chatRoom, messDel, messUpdate]);
 
   useEffect(() => {
     const subscription = DataStore.observe(MessageModel).subscribe((msg) => {
@@ -29,6 +30,26 @@ export default function MessageScreen() {
       if (msg.model === MessageModel && msg.opType === "INSERT") {
         //apend new message to existing messages
         setMessages((existingMessages) => [msg.element, ...existingMessages]);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const subscription = DataStore.observe(MessageModel).subscribe((msg) => {
+      console.log(msg.model, msg.opType, msg.element);
+      if (msg.model === MessageModel && msg.opType === "DELETE") {
+        setMessDel(msg.element.id);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const subscription = DataStore.observe(MessageModel).subscribe((msg) => {
+      console.log(msg.model, msg.opType, msg.element);
+      if (msg.model === MessageModel && msg.opType === "UPDATE") {
+        setMessUpdate(msg.element.id);
       }
     });
     return () => subscription.unsubscribe();

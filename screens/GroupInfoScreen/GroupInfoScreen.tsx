@@ -26,6 +26,8 @@ const GroupInfoScreen = () => {
   const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const [roomName, setRoomName] = useState("");
   const [render, setRender] = useState(false);
+  const [admin, setadmin] = useState();
+  const [userdelete, setuserdelete] = useState();
   const route = useRoute();
   const navigation = useNavigation();
   const isFocused = useIsFocused();
@@ -33,7 +35,7 @@ const GroupInfoScreen = () => {
   useEffect(() => {
     fetchChatRoom();
     fetchUsers();
-  }, [isFocused, render]);
+  }, [isFocused, render, userdelete, admin]);
 
   const fetchChatRoom = async () => {
     if (!route.params?.id) {
@@ -55,6 +57,25 @@ const GroupInfoScreen = () => {
 
     setAllUsers(fetchedUsers);
   };
+
+  useEffect(() => {
+    const subscription = DataStore.observe(ChatRoom).subscribe((msg) => {
+      if (msg.model === ChatRoom && msg.opType === "UPDATE") {
+        setadmin(msg.element.Admin);
+        setRender(!render);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+  useEffect(() => {
+    const subscription = DataStore.observe(ChatRoomUser).subscribe((msg) => {
+      if (msg.model === ChatRoomUser && msg.opType === "DELETE") {
+        setuserdelete(msg.element.user.id);
+        setRender(!render);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   const confirmChangeAdmin = async (user) => {
     // check if Auth user is admin of this group
@@ -91,6 +112,7 @@ const GroupInfoScreen = () => {
         updatedAdmin.Admin.id = user.id;
       })
     );
+    setRender(!render);
     // console.log("Change admin");
     // console.log(changeAdmin);
   };

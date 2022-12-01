@@ -59,9 +59,12 @@ export default function UsersScreen() {
       newMessages: 0,
       Admin: dbUser,
     };
-    if (users.length > 1) {
+    if (users.length >= 2) {
       newChatRoomData.name = "Friend Group";
       newChatRoomData.imageUri = "group.jpeg";
+    } else {
+      Alert.alert("Not enough member");
+      return;
     }
     const newChatRoom = await DataStore.save(new ChatRoom(newChatRoomData));
 

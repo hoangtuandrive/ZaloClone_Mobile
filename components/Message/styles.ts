@@ -26,8 +26,15 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     borderRadius: 15,
-    marginTop: 10,
+    marginTop: 15,
     marginLeft: 5,
+  },
+  imageRight: {
+    height: 30,
+    width: 30,
+    borderRadius: 15,
+    marginTop: 15,
+    marginRight: 5,
   },
   row: {
     flexDirection: "row",

@@ -90,7 +90,13 @@ export default function ChatRoomItem({ chatRoom }) {
           <Text style={[styles.name, chatRoom.newMessages && styles.bold]}>
             {chatRoom.name || user?.name}
           </Text>
-          <Text style={[styles.text, chatRoom.newMessages && styles.bold]}>
+          <Text
+            style={[
+              styles.text,
+              chatRoom.newMessages && styles.bold,
+              { fontSize: 14 },
+            ]}
+          >
             {time}
           </Text>
         </View>
